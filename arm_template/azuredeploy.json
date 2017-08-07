@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "resourceNamePrefix": {
-            "defaultValue": "pmaint",
+            "defaultValue": "prmaint",
             "type": "string",
             "minLength": 3,
             "maxLength": 7,
@@ -188,7 +188,10 @@
                 "packageType": "Graph",
                 "exposeSampleData": false
             },
-            "dependsOn": ["[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"]
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+                "[resourceId('Microsoft.MachineLearning/commitmentPlans', variables('mlCommitmentPlanName'))]"
+            ]
         },
         {
             "type": "Microsoft.MachineLearning/Workspaces",
