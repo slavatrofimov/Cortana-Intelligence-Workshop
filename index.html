@@ -950,7 +950,7 @@ FROM DataWithPredictions
 <h3 id="create-azure-data-factory">Create Azure Data Factory</h3>
 <p>Azure Data Factory is a cloud-based integration service for orchestrating data movements and data transformations. These operations are called pipelines and can be schedule to ingest data from multiple sources, process data using compute services (Azure HDInsight, Hadoop, Spark, Azure Data Lake Analytics, Azure Machine Learning, etc.), and publish to data stores such as Azure Data Lake Store.</p>
 <h4 class="exercise-start">
-    <b>Exercise 1</b>: Provision a Data Factory
+    <b>Exercise</b>: Provision a Data Factory
 </h4>
 
 <p>Browse to the following page <a href="https://portal.azure.com/">https://portal.azure.com/</a> and log into your Azure account. </p>
@@ -989,9 +989,9 @@ FROM DataWithPredictions
     <b>Exercise 2 :</b> Copy Files using Azure Data Factory Copy Wizard
 </h4>
 
-<p><b>2.1</b> - Once the data factory has been created, open the resource and click on <em>Copy data (PREVIEW)</em>. This will open a new tab to the Azure Data Factory Copy Wizard. </p>
+<p>Once the data factory has been created, open the resource and click on <em>Copy data (PREVIEW)</em>. This will open a new tab to the Azure Data Factory Copy Wizard. </p>
 <p><img src="images/chapter6/DF_005.png" alt="Data Factory 005"></p>
-<p><b>2.2</b> - On the Properties menu of Copy Data complete the following tasks.</p>
+<p>On the Properties menu of Copy Data complete the following tasks.</p>
 <p><img src="images/chapter6/DF_006.png" alt="Data Factory 006"></p>
 <ol>
 <li>Specify a task name</li>
@@ -999,9 +999,9 @@ FROM DataWithPredictions
 <li>Select Run once now</li>
 <li>Click on the <em>Next</em> button</li>
 </ol>
-<p><b>2.3</b> - On the Source Connection select Azure Blob Storage from the list. Click the <em>Next</em> button to continue. </p>
+<p>On the Source Connection select Azure Blob Storage from the list. Click the <em>Next</em> button to continue. </p>
 <p><img src="images/chapter6/DF_007.png" alt="Data Factory 007"></p>
-<p><b>2.4</b> On the following screen, enter the storage account information. Click the <em>Next</em> button to continue.</p>
+<p>On the following screen, enter the storage account information. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_008.png" class="img-medium" /></p>
 <ol>
 <li>Specify a connection name</li>
@@ -1011,17 +1011,17 @@ FROM DataWithPredictions
 <strong>Your storage account key will be provided during the workshop</strong></li>
 <li>Click on the <em>Next</em> button</li>
 </ol>
-<p><b>2.5</b> On the following screen, select the input folder <em>device-operating-data</em>. Then, click the <em>Choose</em> button.</p>
+<p>On the following screen, select the input folder <em>device-operating-data</em>. Then, click the <em>Choose</em> button.</p>
 <p><img src="images/chapter6/DF_009.png" alt="Data Factory 009"></p>
-<p><b>2.6</b> On the following screen, click the check box for copying files recursively. Click the <em>Next</em> button to continue.</p>
+<p>On the following screen, click the check box for copying files recursively. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_010.png" alt="Data Factory 010"></p>
-<p><b>2.7 A</b> - Azure Data Factory will then scan the files selected and automatically detect the File Format settings.</p>
+<p>Azure Data Factory will then scan the files selected and automatically detect the File Format settings.</p>
 <p><img src="images/chapter6/DF_011.png" class="img-medium" /></p>
-<p><b>2.7 B</b> - In addition to the settings, a preview of the files will be shown. Once all settings are correct, click the <em>Next</em> button.</p>
+<p>In addition to the settings, a preview of the files will be shown. Once all settings are correct, click the <em>Next</em> button.</p>
 <p><img src="images/chapter6/DF_012.png" class="img" /></p>
-<p><b>2.8</b> - On the Destination data store screen, select Azure Data Lake Store from the list. Click the <em>Next</em> button to continue. </p>
+<p>On the Destination data store screen, select Azure Data Lake Store from the list. Click the <em>Next</em> button to continue. </p>
 <p><img src="images/chapter6/DF_013.png" alt="Data Factory 013"></p>
-<p><b>2.9</b> - Next we will enter the Azure Data Lake Store connection details. </p>
+<p>Next we will enter the Azure Data Lake Store connection details. </p>
 <p><img src="images/chapter6/DF_014.png" class="img-medium" /></p>
 <ol>
 <li>Specify a connection name</li>
@@ -1031,7 +1031,7 @@ FROM DataWithPredictions
 <li>Select the Authentication type as OAuth (This will prompt for account information on a later step)</li>
 <li>Click on the <em>Next</em> button</li>
 </ol>
-<p><b>2.10</b> The next step is to control how the data will be copied. The options available are the following.</p>
+<p>The next step is to control how the data will be copied. The options available are the following.</p>
 <ul>
 <li>Merge files - will combine files into one large file</li>
 <li>Preserve hierarchy - copy all files and folder structures</li>
@@ -1039,19 +1039,19 @@ FROM DataWithPredictions
 </ul>
 <p>Select <em>Preserve hierarchy</em> and click the <em>Next</em> button to continue. </p>
 <p><img src="images/chapter6/DF_015.png" alt="Data Factory 015"></p>
-<p><b>2.10</b> The next step is to control how the data gets saved. Make sure the <em>Add header to file</em> checkbox is checked. Click the <em>Next</em> button to continue.</p>
+<p>The next step is to control how the data gets saved. Make sure the <em>Add header to file</em> checkbox is checked. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_016.png" class="img-medium" /></p>
-<p><b>2.11</b> Settings will control how the data is moved in Azure. These settings can be changed to allocate a specific number of resources to copy data. Leaving these at Auto will let Azure determine the proper number of resources. Click the <em>Next</em> button to continue.</p>
+<p>Settings will control how the data is moved in Azure. These settings can be changed to allocate a specific number of resources to copy data. Leaving these at Auto will let Azure determine the proper number of resources. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_017.png" class="img-medium" /></p>
-<p><b>2.12</b> - The summary screen contains a detail list of the options selected for the Copy Wizard. Click the <em>Authorize</em> button to enter account information required on step 2.9. Click the <em>Next</em> button to continue.</p>
+<p>The summary screen contains a detail list of the options selected for the Copy Wizard. Click the <em>Authorize</em> button to enter account information required on step 2.9. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_018.png" alt="Data Factory 018"></p>
-<p><b>2.13</b> - A popup window will prompt for Azure account information. Sign in to continue.</p>
+<p>A popup window will prompt for Azure account information. Sign in to continue.</p>
 <p><img src="images/chapter6/DF_019.png" class="img-medium" /></p>
-<p><b>2.14</b> - Review the Summary page. Once approved, click the <em>Next</em> button to begin the deployment process of the Azure Data Factory.</p>
+<p>Review the Summary page. Once approved, click the <em>Next</em> button to begin the deployment process of the Azure Data Factory.</p>
 <p><img src="images/chapter6/DF_020.png" alt="Data Factory 020"></p>
-<p><b>2.15</b> - Once deployment is complete, follow the <em>Click here to monitor copy pipeline</em> link.</p>
+<p>Once deployment is complete, follow the <em>Click here to monitor copy pipeline</em> link.</p>
 <p><img src="images/chapter6/DF_021.png" alt="Data Factory 021"></p>
-<p><b>2.16</b> - The Azure Data Factory Resource Explorer will be displayed. In the lower middle section, under ACTIVITY WINDOWS, the currently deployed pipeline will be displayed. Monitor the duration to see how long the copy process will take to complete.</p>
+<p>The Azure Data Factory Resource Explorer will be displayed. In the lower middle section, under ACTIVITY WINDOWS, the currently deployed pipeline will be displayed. Monitor the duration to see how long the copy process will take to complete.</p>
 <p><img src="images/chapter6/DF_022.png" class="img-large" /></p>
 <p>This completes the exercise!</p>
 <div class="exercise-end"></div>
@@ -1233,7 +1233,8 @@ FROM DataWithPredictions
 <li>Click <em>OK</em> to complete the login process.</li>
 </ol>
 <p><img src="images/chapter7/DWH009.png" class="img-medium"/></p>
-<p>Once connected to the Azure SQL Data Warehouse, we can being writing queries directly in the browser. The following T-SQL script will create a Master Key and Credential to securely connect to Azure SQL Data Warehouse. </p>
+<h4 id="load-historical-telemetry-data-from-azure-data-lake-store">Load Historical Telemetry Data from Azure Data Lake Store</h4>
+<p>Once connected to the Azure SQL Data Warehouse, we can begin writing queries directly in the browser. The following T-SQL script will create a Master Key and Credential to securely connect to Azure SQL Data Warehouse. </p>
 <blockquote>
 <p><strong>NOTE:</strong> This exercise uses Application Id, OAuth 2.0 Token Endpoint, and Authentication Key that you have obtained in a previous exercise in this chapter.</p>
 </blockquote>
@@ -1302,6 +1303,7 @@ FROM dbo.DeviceTelemetryExternal
 
 CREATE STATISTICS DeviceTelemetryDeviceIdStats on dbo.DeviceTelemetry(DeviceId);
 </code></pre>
+<h4 id="load-reference-data-from-azure-blob-storage">Load Reference Data from Azure Blob Storage</h4>
 <p>Now, let&#39;s retrieve reference data describing each of the devices. We will retrieve reference data from KiZAN&#39;s blob storage account. Before we can access the data, let us create another database-scoped credential.</p>
 <pre><code class="lang-sql">CREATE DATABASE SCOPED CREDENTIAL AzureStorageCredential
 WITH

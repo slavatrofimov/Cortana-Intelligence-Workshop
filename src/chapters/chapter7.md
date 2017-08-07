@@ -230,8 +230,8 @@ Next, sign into the Azure SQL Data Warehouse using the Azure SQL Data Warehouse 
 
 <img src="images/chapter7/DWH009.png" class="img-medium"/>
 
-
-Once connected to the Azure SQL Data Warehouse, we can being writing queries directly in the browser. The following T-SQL script will create a Master Key and Credential to securely connect to Azure SQL Data Warehouse. 
+#### Load Historical Telemetry Data from Azure Data Lake Store
+Once connected to the Azure SQL Data Warehouse, we can begin writing queries directly in the browser. The following T-SQL script will create a Master Key and Credential to securely connect to Azure SQL Data Warehouse. 
 
 > **NOTE:** This exercise uses Application Id, OAuth 2.0 Token Endpoint, and Authentication Key that you have obtained in a previous exercise in this chapter.
 
@@ -315,6 +315,9 @@ FROM dbo.DeviceTelemetryExternal
 
 CREATE STATISTICS DeviceTelemetryDeviceIdStats on dbo.DeviceTelemetry(DeviceId);
 ```
+
+#### Load Reference Data from Azure Blob Storage
+
 Now, let's retrieve reference data describing each of the devices. We will retrieve reference data from KiZAN's blob storage account. Before we can access the data, let us create another database-scoped credential.
 
 ```sql
