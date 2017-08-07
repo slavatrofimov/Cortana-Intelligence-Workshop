@@ -173,7 +173,7 @@
             "scale": null,
             "properties": {
                 "title": "Predictive Maintenance [Predictive Exp.]",
-                "commitmentPlan": "[resourceId('Microsoft.MachineLearning/commitmentPlans', variables('mlCommitmentPlanName')]",
+                "commitmentPlan": "[resourceId('Microsoft.MachineLearning/commitmentPlans', variables('mlCommitmentPlanName'))]",
                 "readOnly": false,
                 "realtimeConfiguration": {
                     "maxConcurrentCalls": 20
