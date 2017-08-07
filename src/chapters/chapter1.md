@@ -14,24 +14,24 @@ There are several ways to get an Azure subscription, such as the free trial subs
 
 Browse to the following page http://azure.microsoft.com/en-us/pricing/free-trial/ to obtain a free trial account.
 
-![Start Free Trial](/images/chapter1/Azure Trial/AzureTrial-1.png)
+![Start Free Trial](images/chapter1/Azure Trial/AzureTrial-1.png)
 
 Click *Start free*.
 
-![Start Free Trial](/images/chapter1/Azure Trial/AzureTrial-2.png)
+![Start Free Trial](images/chapter1/Azure Trial/AzureTrial-2.png)
 
 
 If you have a Microsoft account, enter the credentials for the Microsoft account that you want to use. You will be redirected to the Sign up page.
 
 > **NOTE:** If you do not have a Microsoft account, click *Create a new Microsoft account* and complete the following steps:.
-* [Provide your user name and password and click *Next*](/images/chapter1/Azure Trial/AzureTrial-3.png)
-* [Provide your phone number and press *Send code*](/images/chapter1/Azure Trial/AzureTrial-4.png)
-* [Complete a 4-part registration form (similar to the one described below)](/images/chapter1/Azure Trial/AzureTrial-7.png)
+* [Provide your user name and password and click *Next*](images/chapter1/Azure Trial/AzureTrial-3.png)
+* [Provide your phone number and press *Send code*](images/chapter1/Azure Trial/AzureTrial-4.png)
+* [Complete a 4-part registration form (similar to the one described below)](images/chapter1/Azure Trial/AzureTrial-7.png)
 
 
 Complete a 4-part registration form
 
-![Free Trial Signup](/images/chapter1/Azure Trial/sign-up.png)
+![Free Trial Signup](images/chapter1/Azure Trial/sign-up.png)
 
 1. **About you** - provide basic personal information
 2. **Verification by phone** - enter your mobile phone number, and click *Send text message*; when you receive the verification code, enter it in the corresponding box and click *Verify code*
@@ -43,7 +43,7 @@ Complete a 4-part registration form
 Your free subscription will be set up, and you will soon be ready to start using it. 
 
 Log into https://portal.azure.com to access your subscription.
-![Log into Azure Portal](/images/chapter1/Azure Trial/AzureTrial-5.png)
+![Log into Azure Portal](images/chapter1/Azure Trial/AzureTrial-5.png)
 
 <div class="exercise-end"></div>
 
@@ -63,7 +63,7 @@ Scroll down to see the full list of benefits you will get for being a MSDN membe
 
 Click *Activate* to activate the benefits.
 
-![Activate Visual Studio benefits](/images/chapter1/Azure Trial/activate.png)
+![Activate Visual Studio benefits](images/chapter1/Azure Trial/activate.png)
 
 You will need to enter your Microsoft account credentials to verify the subscription and complete the activation steps.
 
@@ -79,11 +79,11 @@ If you already have a Power BI account, you can use it to complete this workshop
 
 To sign up for a free Power BI service, navigate to: [https://powerbi.microsoft.com/](https://powerbi.microsoft.com/) and click on the *Sign up free* button in the upper right corner.
 
-![Sign up free](/images/chapter1/Power BI Trial/PowerBITrial 1.png)
+![Sign up free](images/chapter1/Power BI Trial/PowerBITrial 1.png)
 
 Scroll down to the *Power BI Cloud collaboration and sharing* section and click the *TRY FREE* button, which will redirect you to the start of the sign-up process.
 
-![TRY FREE](/images/chapter1/Power BI Trial/PowerBITrial 2.png)
+![TRY FREE](images/chapter1/Power BI Trial/PowerBITrial 2.png)
 
 Enter your work email address and press the *Sign up* button.
 
@@ -103,10 +103,10 @@ After creating an account or signing in, follow the prompts to complete your sig
 
 At the end of the process, you should be able to reach [your personal Power BI workspace](https://app.powerbi.com/groups/me/contentlist), which will look something like this:
 
-![Personal Workspace](/images/chapter1/Power BI Trial/PowerBITrial 8.png)
+![Personal Workspace](images/chapter1/Power BI Trial/PowerBITrial 8.png)
 
 > **NOTE:** A free Power BI account will be sufficient to complete the exercises in this workshop. However, you will be unable to share your content or collaborate with other users. Optionally, you may choose to try Power BI Pro free for 60 days. Power BI Pro has all the features of the free version of Power BI, and additional sharing and collaboration features. To try a 60-day free trial of Power BI Pro, sign into Power BI, and try one of the Power BI Pro features, such as create an app workspace or sharing a dashboard. When you try any of these features, you will be prompted to start your free trial.
 
->![TRY FREE](/images/chapter1/Power BI Trial/PowerBITrial 7.png)
+>![TRY FREE](images/chapter1/Power BI Trial/PowerBITrial 7.png)
 
 <div class="exercise-end"></div>
