@@ -4,7 +4,7 @@ Once the Stream Analytics got started, it created a streaming dataset in your Po
 
 ### Create a Power BI Report
 <h4 class="exercise-start">
-    <b>Exercise</b>: Create a Power BI Report
+    <b>Exercise</b>: Create a Power BI Report 
 </h4>
 
 Log into your Power BI account by navigating to https://app.powerbi.com and logging in with your username and password. After logging in you will see the content of your personal workspace. Click on the down-arrow next to the *My Workspace* link to expand the navigation menu for your workspace.
