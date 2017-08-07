@@ -13,7 +13,7 @@ Azure SQL Data Warehouse is a cloud-based massively parallel processing (MPP) re
 
 Browse to the following page https://portal.azure.com/ and log into your Azure account.
 
-![Data Warehouse 002](/images/chapter7/DWH002.png)
+![Data Warehouse 002](images/chapter7/DWH002.png)
 
 1. Click the + New to create a new Azure resource
 2. Select *Databases*
@@ -21,7 +21,7 @@ Browse to the following page https://portal.azure.com/ and log into your Azure a
 
 An alternative is to search for *SQL Data Warehouse* in the Azure Marketplace. 
 
-![Data Warehouse 001](/images/chapter7/DWH001.png)
+![Data Warehouse 001](images/chapter7/DWH001.png)
 
 1. Click the + New to create a new Azure resource
 2. Type *Data Warehouse* in the Search Box
@@ -29,7 +29,7 @@ An alternative is to search for *SQL Data Warehouse* in the Azure Marketplace.
 
 Specify the properties of the New Data Warehouse. 
 
-<img src="/images/chapter7/DWH003.png" alt="Data Warehouse 003" class="img-small"/>
+<img src="images/chapter7/DWH003.png" alt="Data Warehouse 003" class="img-small"/>
 
 1. Specify name
 2. Confirm the subscription 
@@ -40,7 +40,7 @@ Specify the properties of the New Data Warehouse.
 7. Click on the *Create* button to provision the new data warehouse
 
 Specify the server for the New Data Warehouse. 
-![Data Warehouse 004](/images/chapter7/DWH004.png)
+![Data Warehouse 004](images/chapter7/DWH004.png)
 
 1. Click *Server* to configure
 2. Click *Create a new server*
@@ -59,7 +59,7 @@ Specify the server for the New Data Warehouse.
 
 Specify the remaining server properties for the New Data Warehouse. 
 
-<img src="/images/chapter7/DWH005.png" alt="Data Warehouse 005" class="img-small"/>
+<img src="images/chapter7/DWH005.png" alt="Data Warehouse 005" class="img-small"/>
 
 1. Verify the correct server is selected
 2. Leave the default Collation
@@ -79,20 +79,20 @@ Before we can access data from the Azure Data Lake Store using Azure SQL Data Wa
 
 In the Azure Portal, navigate to the Azure Active Director blade by typing in "Azure Active Directory" in the search bar at the top of the page. Then, select *Azure Active Directory* from the list of matching resources.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 1.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 1.png" class="img"/>
 
 Click on *App registrations* in the navigation bar.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 3.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 3.png" class="img-small"/>
 
 Click on * + New application registration*
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 4.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 4.png" class="img"/>
 
 
 Specify the details of the new application:
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 5.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 5.png" class="img-small"/>
 
 1. Provide the name for your application
 2. Specify *Web app/API* as application type
@@ -108,29 +108,29 @@ Now that the application has been created, let us find and record several import
 ##### Find the OAuth 2.0 Token Endpoint
 On the listing of registered apps, click on the *Endpoints* link.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 7.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 7.png" class="img"/>
 
 On the following screen, you will see a list of endpoints associated with this Azure Active Directory APP. Scroll down to the *OAUTH 2.0 TOKEN ENDPOINT* area and click on the Copy icon to copy the endpoint URL to the clipboard.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 9.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 9.png" class="img-small"/>
 
 Paste and save this URL in a text editor -- you will need it later.
 
 ##### Find Application Id
 To find the Application Id of the application, navigate to the overview of the registered app, hover over the Application Id and click on the Copy icon that will appear.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 10.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 10.png" class="img"/>
 
 Paste and save the Application Id in a text editor -- you will need it later.
 
 ##### Create the Authentication Key
 Find the *Keys* link in the Settings blade for the Registered App. 
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 11.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 11.png" class="img-small"/>
 
 In the Keys blade, create and save a new Key:
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 12.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 12.png" class="img"/>
 
 1. Specify Key description
 2. Set the expiration date
@@ -138,7 +138,7 @@ In the Keys blade, create and save a new Key:
 
 When the authentication key is saved, a key value will be automatically generated. Copy this key, paste it to a text editor and save it -- you will need it later. 
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 13.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 13.png" class="img"/>
 
 >**NOTE:** The value of the key will not be visible after you leave the Keys blade - be sure to save it securely.
 
@@ -155,45 +155,45 @@ Now, that the application has been created, let us grant it the necessary permis
 
 In the Azure Portal, navigate to the Azure Data Lake Store blade by typing in "Data Lake Store" in the search bar at the top of the page. Then, select *Data Lake Store* from the list of matching resources.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 15.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 15.png" class="img"/>
 
 
 Select the Data Lake Store that you had created earlier.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 16.png" class="img-medium"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 16.png" class="img-medium"/>
 
 In the Overview blade of the Data Lake Store, click on the Data Explorer link:
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 17.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 17.png" class="img"/>
 
 Select the root folder of your Azure Data Lake Store in the Data Explorer window.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 18.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 18.png" class="img-small"/>
 
 
 Click on *Access* in the toolbar at the top of the screen.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 19.png" class="img"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 19.png" class="img"/>
 
 In the Access blade, click on the *+ Add* button.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 20.png" class="img-medium"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 20.png" class="img-medium"/>
 
 Click on the *Select User or Group* link in the Assign Permissions blade.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 22.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 22.png" class="img-small"/>
 
 Search for and select the Azure Active Directory application that you had registered earlier:
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 23.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 23.png" class="img-small"/>
 
 Click on the *Select Permissions* link in the Assign Permissions blade.
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 24.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 24.png" class="img-small"/>
 
 Specify the desired permissions:
 
-<img src="/images/chapter7/ADLS Access/ADLS Access 25.png" class="img-small"/>
+<img src="images/chapter7/ADLS Access/ADLS Access 25.png" class="img-small"/>
 
 1. Set Read and Execute permissions
 2. Add the permissions to the selected folder and all child items
@@ -214,11 +214,11 @@ PolyBase is a technology that accesses data outside of the Azure SQL Data Wareho
 </h4>
 
 Open Azure SQL Data Warehouse and click on *Query editor (preview)* under Common Tasks.
-![Data Warehouse 006](/images/chapter7/DWH006.png)
+![Data Warehouse 006](images/chapter7/DWH006.png)
 
 The following message will appear describing the terms of the preview feature. Click the checkbox to accept the terms and then click *OK*.
 
-<img src="/images/chapter7/DWH007.png" alt="Data Warehouse 007" class="img-small"/>
+<img src="images/chapter7/DWH007.png" alt="Data Warehouse 007" class="img-small"/>
 
 
 Next, sign into the Azure SQL Data Warehouse using the Azure SQL Data Warehouse account from the previous exercise.
@@ -228,7 +228,7 @@ Next, sign into the Azure SQL Data Warehouse using the Azure SQL Data Warehouse 
 4. Specify the password that you had selected in a previous exercise
 5. Click *OK* to complete the login process.
 
-<img src="/images/chapter7/DWH009.png" class="img-medium"/>
+<img src="images/chapter7/DWH009.png" class="img-medium"/>
 
 
 Once connected to the Azure SQL Data Warehouse, we can being writing queries directly in the browser. The following T-SQL script will create a Master Key and Credential to securely connect to Azure SQL Data Warehouse. 
@@ -396,7 +396,7 @@ This completes the exercise!
 
 Open Azure SQL Data Warehouse and click on Open in Power BI under Common Tasks. 
 
-<img src="/images/chapter7/DWH010.png" class="img"/>
+<img src="images/chapter7/DWH010.png" class="img"/>
 
 You may be asked to enter your username and password to log into the Power BI service.
 
@@ -404,11 +404,11 @@ You may be asked to enter your username and password to log into the Power BI se
 
 During the next step, you will confirm the names of the Azure SQL Server and Database. Click Next to continue.
 
-<img src="/images/chapter7/PowerBI 1.png" class="img-large"/>
+<img src="images/chapter7/PowerBI 1.png" class="img-large"/>
 
 Enter the username and password for the Azure SQL Data Warehouse account that you had created earlier. Then press the *Sign In* button to connect to the Azure SQL Data Warehouse. 
 
-<img src="/images/chapter7/DWH012.png" class="img-medium"/>
+<img src="images/chapter7/DWH012.png" class="img-medium"/>
 
 A new Power BI dataset connected to Azure SQL Data Warehouse will be created.
 
@@ -416,7 +416,7 @@ You will see a new report canvas that you will use to create a new report.
 
 Start by creating a bar chart that summarizes average temperatures by device. 
 
-<img src="/images/chapter7/PowerBI 3.png" class="img-large"/>
+<img src="images/chapter7/PowerBI 3.png" class="img-large"/>
 
 1. Select the bar chart visual from the visualizations pallette
 2. Drag and drop the bar chart visual to the report canvas and expand it to a larger size.
@@ -428,7 +428,7 @@ Start by creating a bar chart that summarizes average temperatures by device.
 8. Select *Average* from the pop-up menu.
 
 Now, let us enhance this chart by representing not only the average temperature, but also the volatility of temperatures for each device.
-<img src="/images/chapter7/PowerBI 4.png" class="img-large"/>
+<img src="images/chapter7/PowerBI 4.png" class="img-large"/>
 
 1. Select TempC field from the DeviceTelemetry table
 2. Drag and drop the TempC field to the Color saturation placeholder\

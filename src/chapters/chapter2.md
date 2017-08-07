@@ -72,23 +72,23 @@ During this exercise, you will start developing a machine learning model using A
 
 After logging into the Azure portal, navigate to the Machine Learning Workspace:
 
-![Navigate to Machine Learning Workspace](/images/chapter2/Machine Learning/ML Model 1.png)
+![Navigate to Machine Learning Workspace](images/chapter2/Machine Learning/ML Model 1.png)
 
 From the Machine Learning Workspace overview blade, launch the Machine Learning Studio.
 
-![Launch Machine Learning Studio](/images/chapter2/Machine Learning/ML Model 3.png)
+![Launch Machine Learning Studio](images/chapter2/Machine Learning/ML Model 3.png)
 
 Sign into the Machine Learning Studio.
 
-![Sign into the Machine Learning Studio](/images/chapter2/Machine Learning/ML Model 5.png)
+![Sign into the Machine Learning Studio](images/chapter2/Machine Learning/ML Model 5.png)
 
 From the experiments area of the Machine Learning Studio, create a new Experiment.
 
-![Create a new experiment](/images/chapter2/Machine Learning/ML Model 6.png)
+![Create a new experiment](images/chapter2/Machine Learning/ML Model 6.png)
 
 We will start with a blank experiment, by clicking the "Blank Experiment" tile, which will open a new experiment design area.
 
-![Start with a blank experiment](/images/chapter2/Machine Learning/ML Model 7.png)
+![Start with a blank experiment](images/chapter2/Machine Learning/ML Model 7.png)
 
 The experiment design area consists of an experiment canvas in the center, a navigation bar with a list of available modules on the left and a properties pane on the right.
 
@@ -102,11 +102,11 @@ The experiment design area consists of an experiment canvas in the center, a nav
 
 We will add the first module to our machine learning experiment, which will import the raw data for the model. Expand the *Data Inputs and Outputs* folder, find the *Import Data* module and drag it onto the experiment canvas.
 
-![Add the Import Data Module](/images/chapter2/Machine Learning/ML Model 10.png)
+![Add the Import Data Module](images/chapter2/Machine Learning/ML Model 10.png)
 
 Now, let's configure the Import Data Module by clicking on the *Launch Import Data Wizard*, and selecting *Web URL via HTTP* from the list of available sources.
 
-![Launch Import Data Wizard](/images/chapter2/Machine Learning/ML Model 11.png)
+![Launch Import Data Wizard](images/chapter2/Machine Learning/ML Model 11.png)
 
 On the next step of the wizard, provide the Data Source URL:
 

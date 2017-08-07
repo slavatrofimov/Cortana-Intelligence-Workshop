@@ -221,15 +221,15 @@
 
 <p>During this exercise, you will start developing a machine learning model using Azure Machine Learning Studio. The purpose of the model is to predict the remaining useful life of an electrical motor based on its attributes and operating conditions.</p>
 <p>After logging into the Azure portal, navigate to the Machine Learning Workspace:</p>
-<p><img src="/images/chapter2/Machine Learning/ML Model 1.png" alt="Navigate to Machine Learning Workspace"></p>
+<p><img src="images/chapter2/Machine Learning/ML Model 1.png" alt="Navigate to Machine Learning Workspace"></p>
 <p>From the Machine Learning Workspace overview blade, launch the Machine Learning Studio.</p>
-<p><img src="/images/chapter2/Machine Learning/ML Model 3.png" alt="Launch Machine Learning Studio"></p>
+<p><img src="images/chapter2/Machine Learning/ML Model 3.png" alt="Launch Machine Learning Studio"></p>
 <p>Sign into the Machine Learning Studio.</p>
-<p><img src="/images/chapter2/Machine Learning/ML Model 5.png" alt="Sign into the Machine Learning Studio"></p>
+<p><img src="images/chapter2/Machine Learning/ML Model 5.png" alt="Sign into the Machine Learning Studio"></p>
 <p>From the experiments area of the Machine Learning Studio, create a new Experiment.</p>
-<p><img src="/images/chapter2/Machine Learning/ML Model 6.png" alt="Create a new experiment"></p>
+<p><img src="images/chapter2/Machine Learning/ML Model 6.png" alt="Create a new experiment"></p>
 <p>We will start with a blank experiment, by clicking the &quot;Blank Experiment&quot; tile, which will open a new experiment design area.</p>
-<p><img src="/images/chapter2/Machine Learning/ML Model 7.png" alt="Start with a blank experiment"></p>
+<p><img src="images/chapter2/Machine Learning/ML Model 7.png" alt="Start with a blank experiment"></p>
 <p>The experiment design area consists of an experiment canvas in the center, a navigation bar with a list of available modules on the left and a properties pane on the right.</p>
 <div class="exercise-end"></div>
 
@@ -239,9 +239,9 @@
 </h4>
 
 <p>We will add the first module to our machine learning experiment, which will import the raw data for the model. Expand the <em>Data Inputs and Outputs</em> folder, find the <em>Import Data</em> module and drag it onto the experiment canvas.</p>
-<p><img src="/images/chapter2/Machine Learning/ML Model 10.png" alt="Add the Import Data Module"></p>
+<p><img src="images/chapter2/Machine Learning/ML Model 10.png" alt="Add the Import Data Module"></p>
 <p>Now, let&#39;s configure the Import Data Module by clicking on the <em>Launch Import Data Wizard</em>, and selecting <em>Web URL via HTTP</em> from the list of available sources.</p>
-<p><img src="/images/chapter2/Machine Learning/ML Model 11.png" alt="Launch Import Data Wizard"></p>
+<p><img src="images/chapter2/Machine Learning/ML Model 11.png" alt="Launch Import Data Wizard"></p>
 <p>On the next step of the wizard, provide the Data Source URL:</p>
 <p><a href="https://kizanmltrainingdata.blob.core.windows.net/predictivemaintenance/Machine%20Learning%20-%20Remaining%20Useful%20life.csv">https://kizanmltrainingdata.blob.core.windows.net/predictivemaintenance/Machine%20Learning%20-%20Remaining%20Useful%20life.csv</a></p>
 <p>Select CSV data format and indicate that the CSV file has a header row:</p>
@@ -954,21 +954,21 @@ FROM DataWithPredictions
 </h4>
 
 <p>Browse to the following page <a href="https://portal.azure.com/">https://portal.azure.com/</a> and log into your Azure account. </p>
-<p><img src="/images/chapter6/DF_001.png" alt="Data Factory 001"></p>
+<p><img src="images/chapter6/DF_001.png" alt="Data Factory 001"></p>
 <ol>
 <li>Click the New + to create a new Azure Resource</li>
 <li>Select Data + Analytics </li>
 <li>Click on Data Factory</li>
 </ol>
 <p>An alternative is to search for Data Factory in the Azure Marketplace.
-<img src="/images/chapter6/DF_002.png" alt="Data Factory 002"></p>
+<img src="images/chapter6/DF_002.png" alt="Data Factory 002"></p>
 <ol>
 <li>Click the New + to create a new Azure Resource</li>
 <li>Type Data Factory in the Search Box</li>
 <li>Click on Data Factory</li>
 </ol>
 <p>On the next blade menu click on the <em>Create</em> button to provision the Azure Data Factory.</p>
-<p><img src="/images/chapter6/DF_003.png" alt="Data Factory 003"></p>
+<p><img src="images/chapter6/DF_003.png" alt="Data Factory 003"></p>
 <p>Specify the properties of the New data factory.</p>
 <p><img src="images/chapter6/DF_004.png" class="img-medium" /></p>
 <ol>
@@ -990,9 +990,9 @@ FROM DataWithPredictions
 </h4>
 
 <p><b>2.1</b> - Once the data factory has been created, open the resource and click on <em>Copy data (PREVIEW)</em>. This will open a new tab to the Azure Data Factory Copy Wizard. </p>
-<p><img src="/images/chapter6/DF_005.png" alt="Data Factory 005"></p>
+<p><img src="images/chapter6/DF_005.png" alt="Data Factory 005"></p>
 <p><b>2.2</b> - On the Properties menu of Copy Data complete the following tasks.</p>
-<p><img src="/images/chapter6/DF_006.png" alt="Data Factory 006"></p>
+<p><img src="images/chapter6/DF_006.png" alt="Data Factory 006"></p>
 <ol>
 <li>Specify a task name</li>
 <li>Enter a task description </li>
@@ -1000,7 +1000,7 @@ FROM DataWithPredictions
 <li>Click on the <em>Next</em> button</li>
 </ol>
 <p><b>2.3</b> - On the Source Connection select Azure Blob Storage from the list. Click the <em>Next</em> button to continue. </p>
-<p><img src="/images/chapter6/DF_007.png" alt="Data Factory 007"></p>
+<p><img src="images/chapter6/DF_007.png" alt="Data Factory 007"></p>
 <p><b>2.4</b> On the following screen, enter the storage account information. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_008.png" class="img-medium" /></p>
 <ol>
@@ -1012,15 +1012,15 @@ FROM DataWithPredictions
 <li>Click on the <em>Next</em> button</li>
 </ol>
 <p><b>2.5</b> On the following screen, select the input folder <em>device-operating-data</em>. Then, click the <em>Choose</em> button.</p>
-<p><img src="/images/chapter6/DF_009.png" alt="Data Factory 009"></p>
+<p><img src="images/chapter6/DF_009.png" alt="Data Factory 009"></p>
 <p><b>2.6</b> On the following screen, click the check box for copying files recursively. Click the <em>Next</em> button to continue.</p>
-<p><img src="/images/chapter6/DF_010.png" alt="Data Factory 010"></p>
+<p><img src="images/chapter6/DF_010.png" alt="Data Factory 010"></p>
 <p><b>2.7 A</b> - Azure Data Factory will then scan the files selected and automatically detect the File Format settings.</p>
 <p><img src="images/chapter6/DF_011.png" class="img-medium" /></p>
 <p><b>2.7 B</b> - In addition to the settings, a preview of the files will be shown. Once all settings are correct, click the <em>Next</em> button.</p>
 <p><img src="images/chapter6/DF_012.png" class="img" /></p>
 <p><b>2.8</b> - On the Destination data store screen, select Azure Data Lake Store from the list. Click the <em>Next</em> button to continue. </p>
-<p><img src="/images/chapter6/DF_013.png" alt="Data Factory 013"></p>
+<p><img src="images/chapter6/DF_013.png" alt="Data Factory 013"></p>
 <p><b>2.9</b> - Next we will enter the Azure Data Lake Store connection details. </p>
 <p><img src="images/chapter6/DF_014.png" class="img-medium" /></p>
 <ol>
@@ -1038,21 +1038,21 @@ FROM DataWithPredictions
 <li>Flatten hierarchy - remove all folders and copy all files into one folder</li>
 </ul>
 <p>Select <em>Preserve hierarchy</em> and click the <em>Next</em> button to continue. </p>
-<p><img src="/images/chapter6/DF_015.png" alt="Data Factory 015"></p>
+<p><img src="images/chapter6/DF_015.png" alt="Data Factory 015"></p>
 <p><b>2.10</b> The next step is to control how the data gets saved. Make sure the <em>Add header to file</em> checkbox is checked. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_016.png" class="img-medium" /></p>
 <p><b>2.11</b> Settings will control how the data is moved in Azure. These settings can be changed to allocate a specific number of resources to copy data. Leaving these at Auto will let Azure determine the proper number of resources. Click the <em>Next</em> button to continue.</p>
 <p><img src="images/chapter6/DF_017.png" class="img-medium" /></p>
 <p><b>2.12</b> - The summary screen contains a detail list of the options selected for the Copy Wizard. Click the <em>Authorize</em> button to enter account information required on step 2.9. Click the <em>Next</em> button to continue.</p>
-<p><img src="/images/chapter6/DF_018.png" alt="Data Factory 018"></p>
+<p><img src="images/chapter6/DF_018.png" alt="Data Factory 018"></p>
 <p><b>2.13</b> - A popup window will prompt for Azure account information. Sign in to continue.</p>
 <p><img src="images/chapter6/DF_019.png" class="img-medium" /></p>
 <p><b>2.14</b> - Review the Summary page. Once approved, click the <em>Next</em> button to begin the deployment process of the Azure Data Factory.</p>
-<p><img src="/images/chapter6/DF_020.png" alt="Data Factory 020"></p>
+<p><img src="images/chapter6/DF_020.png" alt="Data Factory 020"></p>
 <p><b>2.15</b> - Once deployment is complete, follow the <em>Click here to monitor copy pipeline</em> link.</p>
-<p><img src="/images/chapter6/DF_021.png" alt="Data Factory 021"></p>
+<p><img src="images/chapter6/DF_021.png" alt="Data Factory 021"></p>
 <p><b>2.16</b> - The Azure Data Factory Resource Explorer will be displayed. In the lower middle section, under ACTIVITY WINDOWS, the currently deployed pipeline will be displayed. Monitor the duration to see how long the copy process will take to complete.</p>
-<p><img src="/images/chapter6/DF_022.png" alt="Data Factory 022"></p>
+<p><img src="images/chapter6/DF_022.png" alt="Data Factory 022"></p>
 <p>This completes the exercise!</p>
 <div class="exercise-end"></div>
 
@@ -1068,21 +1068,21 @@ FROM DataWithPredictions
 </h4>
 
 <p>Browse to the following page <a href="https://portal.azure.com/">https://portal.azure.com/</a> and log into your Azure account.</p>
-<p><img src="/images/chapter7/DWH002.png" alt="Data Warehouse 002"></p>
+<p><img src="images/chapter7/DWH002.png" alt="Data Warehouse 002"></p>
 <ol>
 <li>Click the + New to create a new Azure resource</li>
 <li>Select <em>Databases</em></li>
 <li>Click on <em>SQL Data Warehouse</em></li>
 </ol>
 <p>An alternative is to search for <em>SQL Data Warehouse</em> in the Azure Marketplace. </p>
-<p><img src="/images/chapter7/DWH001.png" alt="Data Warehouse 001"></p>
+<p><img src="images/chapter7/DWH001.png" alt="Data Warehouse 001"></p>
 <ol>
 <li>Click the + New to create a new Azure resource</li>
 <li>Type <em>Data Warehouse</em> in the Search Box</li>
 <li>Click on <em>SQL Data Warehouse</em> to create a new SQL Data Warehouse</li>
 </ol>
 <p>Specify the properties of the New Data Warehouse. </p>
-<p><img src="/images/chapter7/DWH003.png" alt="Data Warehouse 003" class="img-small"/></p>
+<p><img src="images/chapter7/DWH003.png" alt="Data Warehouse 003" class="img-small"/></p>
 <ol>
 <li>Specify name</li>
 <li>Confirm the subscription </li>
@@ -1093,7 +1093,7 @@ FROM DataWithPredictions
 <li>Click on the <em>Create</em> button to provision the new data warehouse</li>
 </ol>
 <p>Specify the server for the New Data Warehouse. 
-<img src="/images/chapter7/DWH004.png" alt="Data Warehouse 004"></p>
+<img src="images/chapter7/DWH004.png" alt="Data Warehouse 004"></p>
 <ol>
 <li>Click <em>Server</em> to configure</li>
 <li>Click <em>Create a new server</em></li>
@@ -1113,7 +1113,7 @@ FROM DataWithPredictions
 </ul>
 </blockquote>
 <p>Specify the remaining server properties for the New Data Warehouse. </p>
-<p><img src="/images/chapter7/DWH005.png" alt="Data Warehouse 005" class="img-small"/></p>
+<p><img src="images/chapter7/DWH005.png" alt="Data Warehouse 005" class="img-small"/></p>
 <ol>
 <li>Verify the correct server is selected</li>
 <li>Leave the default Collation</li>
@@ -1131,13 +1131,13 @@ FROM DataWithPredictions
 </h4>
 
 <p>In the Azure Portal, navigate to the Azure Active Director blade by typing in &quot;Azure Active Directory&quot; in the search bar at the top of the page. Then, select <em>Azure Active Directory</em> from the list of matching resources.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 1.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 1.png" class="img"/></p>
 <p>Click on <em>App registrations</em> in the navigation bar.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 3.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 3.png" class="img-small"/></p>
 <p>Click on <em> + New application registration</em></p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 4.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 4.png" class="img"/></p>
 <p>Specify the details of the new application:</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 5.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 5.png" class="img-small"/></p>
 <ol>
 <li>Provide the name for your application</li>
 <li>Specify <em>Web app/API</em> as application type</li>
@@ -1152,26 +1152,26 @@ FROM DataWithPredictions
 </ol>
 <h5 id="find-the-oauth-2-0-token-endpoint">Find the OAuth 2.0 Token Endpoint</h5>
 <p>On the listing of registered apps, click on the <em>Endpoints</em> link.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 7.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 7.png" class="img"/></p>
 <p>On the following screen, you will see a list of endpoints associated with this Azure Active Directory APP. Scroll down to the <em>OAUTH 2.0 TOKEN ENDPOINT</em> area and click on the Copy icon to copy the endpoint URL to the clipboard.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 9.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 9.png" class="img-small"/></p>
 <p>Paste and save this URL in a text editor -- you will need it later.</p>
 <h5 id="find-application-id">Find Application Id</h5>
 <p>To find the Application Id of the application, navigate to the overview of the registered app, hover over the Application Id and click on the Copy icon that will appear.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 10.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 10.png" class="img"/></p>
 <p>Paste and save the Application Id in a text editor -- you will need it later.</p>
 <h5 id="create-the-authentication-key">Create the Authentication Key</h5>
 <p>Find the <em>Keys</em> link in the Settings blade for the Registered App. </p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 11.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 11.png" class="img-small"/></p>
 <p>In the Keys blade, create and save a new Key:</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 12.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 12.png" class="img"/></p>
 <ol>
 <li>Specify Key description</li>
 <li>Set the expiration date</li>
 <li>Click Save</li>
 </ol>
 <p>When the authentication key is saved, a key value will be automatically generated. Copy this key, paste it to a text editor and save it -- you will need it later. </p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 13.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 13.png" class="img"/></p>
 <blockquote>
 <p><strong>NOTE:</strong> The value of the key will not be visible after you leave the Keys blade - be sure to save it securely.</p>
 </blockquote>
@@ -1185,25 +1185,25 @@ FROM DataWithPredictions
 </h4>
 
 <p>In the Azure Portal, navigate to the Azure Data Lake Store blade by typing in &quot;Data Lake Store&quot; in the search bar at the top of the page. Then, select <em>Data Lake Store</em> from the list of matching resources.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 15.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 15.png" class="img"/></p>
 <p>Select the Data Lake Store that you had created earlier.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 16.png" class="img-medium"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 16.png" class="img-medium"/></p>
 <p>In the Overview blade of the Data Lake Store, click on the Data Explorer link:</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 17.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 17.png" class="img"/></p>
 <p>Select the root folder of your Azure Data Lake Store in the Data Explorer window.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 18.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 18.png" class="img-small"/></p>
 <p>Click on <em>Access</em> in the toolbar at the top of the screen.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 19.png" class="img"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 19.png" class="img"/></p>
 <p>In the Access blade, click on the <em>+ Add</em> button.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 20.png" class="img-medium"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 20.png" class="img-medium"/></p>
 <p>Click on the <em>Select User or Group</em> link in the Assign Permissions blade.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 22.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 22.png" class="img-small"/></p>
 <p>Search for and select the Azure Active Directory application that you had registered earlier:</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 23.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 23.png" class="img-small"/></p>
 <p>Click on the <em>Select Permissions</em> link in the Assign Permissions blade.</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 24.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 24.png" class="img-small"/></p>
 <p>Specify the desired permissions:</p>
-<p><img src="/images/chapter7/ADLS Access/ADLS Access 25.png" class="img-small"/></p>
+<p><img src="images/chapter7/ADLS Access/ADLS Access 25.png" class="img-small"/></p>
 <ol>
 <li>Set Read and Execute permissions</li>
 <li>Add the permissions to the selected folder and all child items</li>
@@ -1221,9 +1221,9 @@ FROM DataWithPredictions
 </h4>
 
 <p>Open Azure SQL Data Warehouse and click on <em>Query editor (preview)</em> under Common Tasks.
-<img src="/images/chapter7/DWH006.png" alt="Data Warehouse 006"></p>
+<img src="images/chapter7/DWH006.png" alt="Data Warehouse 006"></p>
 <p>The following message will appear describing the terms of the preview feature. Click the checkbox to accept the terms and then click <em>OK</em>.</p>
-<p><img src="/images/chapter7/DWH007.png" alt="Data Warehouse 007" class="img-small"/></p>
+<p><img src="images/chapter7/DWH007.png" alt="Data Warehouse 007" class="img-small"/></p>
 <p>Next, sign into the Azure SQL Data Warehouse using the Azure SQL Data Warehouse account from the previous exercise.</p>
 <ol>
 <li>Click on the <em>Login</em> button</li>
@@ -1232,7 +1232,7 @@ FROM DataWithPredictions
 <li>Specify the password that you had selected in a previous exercise</li>
 <li>Click <em>OK</em> to complete the login process.</li>
 </ol>
-<p><img src="/images/chapter7/DWH009.png" class="img-medium"/></p>
+<p><img src="images/chapter7/DWH009.png" class="img-medium"/></p>
 <p>Once connected to the Azure SQL Data Warehouse, we can being writing queries directly in the browser. The following T-SQL script will create a Master Key and Credential to securely connect to Azure SQL Data Warehouse. </p>
 <blockquote>
 <p><strong>NOTE:</strong> This exercise uses Application Id, OAuth 2.0 Token Endpoint, and Authentication Key that you have obtained in a previous exercise in this chapter.</p>
@@ -1368,19 +1368,19 @@ ORDER BY R.DeviceType,
 </h4>
 
 <p>Open Azure SQL Data Warehouse and click on Open in Power BI under Common Tasks. </p>
-<p><img src="/images/chapter7/DWH010.png" class="img"/></p>
+<p><img src="images/chapter7/DWH010.png" class="img"/></p>
 <p>You may be asked to enter your username and password to log into the Power BI service.</p>
 <blockquote>
 <p><strong>Note:</strong> Your credentials to the Power BI account may or may not be the same as your credentials to your Azure subscription.</p>
 </blockquote>
 <p>During the next step, you will confirm the names of the Azure SQL Server and Database. Click Next to continue.</p>
-<p><img src="/images/chapter7/PowerBI 1.png" class="img-large"/></p>
+<p><img src="images/chapter7/PowerBI 1.png" class="img-large"/></p>
 <p>Enter the username and password for the Azure SQL Data Warehouse account that you had created earlier. Then press the <em>Sign In</em> button to connect to the Azure SQL Data Warehouse. </p>
-<p><img src="/images/chapter7/DWH012.png" class="img-medium"/></p>
+<p><img src="images/chapter7/DWH012.png" class="img-medium"/></p>
 <p>A new Power BI dataset connected to Azure SQL Data Warehouse will be created.</p>
 <p>You will see a new report canvas that you will use to create a new report. </p>
 <p>Start by creating a bar chart that summarizes average temperatures by device. </p>
-<p><img src="/images/chapter7/PowerBI 3.png" class="img-large"/></p>
+<p><img src="images/chapter7/PowerBI 3.png" class="img-large"/></p>
 <ol>
 <li>Select the bar chart visual from the visualizations pallette</li>
 <li>Drag and drop the bar chart visual to the report canvas and expand it to a larger size.</li>
@@ -1392,7 +1392,7 @@ ORDER BY R.DeviceType,
 <li>Select <em>Average</em> from the pop-up menu.</li>
 </ol>
 <p>Now, let us enhance this chart by representing not only the average temperature, but also the volatility of temperatures for each device.
-<img src="/images/chapter7/PowerBI 4.png" class="img-large"/></p>
+<img src="images/chapter7/PowerBI 4.png" class="img-large"/></p>
 <ol>
 <li>Select TempC field from the DeviceTelemetry table</li>
 <li>Drag and drop the TempC field to the Color saturation placeholder\</li>

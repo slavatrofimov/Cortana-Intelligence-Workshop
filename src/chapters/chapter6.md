@@ -11,20 +11,20 @@ Azure Data Factory is a cloud-based integration service for orchestrating data m
 
 Browse to the following page https://portal.azure.com/ and log into your Azure account. 
 
-![Data Factory 001](/images/chapter6/DF_001.png)
+![Data Factory 001](images/chapter6/DF_001.png)
 1. Click the New + to create a new Azure Resource
 2. Select Data + Analytics 
 3. Click on Data Factory
 
 An alternative is to search for Data Factory in the Azure Marketplace.
-![Data Factory 002](/images/chapter6/DF_002.png)
+![Data Factory 002](images/chapter6/DF_002.png)
 1. Click the New + to create a new Azure Resource
 2. Type Data Factory in the Search Box
 3. Click on Data Factory
 
 On the next blade menu click on the *Create* button to provision the Azure Data Factory.
 
-![Data Factory 003](/images/chapter6/DF_003.png)
+![Data Factory 003](images/chapter6/DF_003.png)
 
 Specify the properties of the New data factory.
 
@@ -51,11 +51,11 @@ This completes the exercise!
 
 <b>2.1</b> - Once the data factory has been created, open the resource and click on *Copy data (PREVIEW)*. This will open a new tab to the Azure Data Factory Copy Wizard. 
 
-![Data Factory 005](/images/chapter6/DF_005.png)
+![Data Factory 005](images/chapter6/DF_005.png)
 
 <b>2.2</b> - On the Properties menu of Copy Data complete the following tasks.
 
-![Data Factory 006](/images/chapter6/DF_006.png)
+![Data Factory 006](images/chapter6/DF_006.png)
 1. Specify a task name
 2. Enter a task description 
 3. Select Run once now
@@ -63,7 +63,7 @@ This completes the exercise!
 
 <b>2.3</b> - On the Source Connection select Azure Blob Storage from the list. Click the *Next* button to continue. 
 
-![Data Factory 007](/images/chapter6/DF_007.png)
+![Data Factory 007](images/chapter6/DF_007.png)
 
 
 <b>2.4</b> On the following screen, enter the storage account information. Click the *Next* button to continue.
@@ -78,11 +78,11 @@ This completes the exercise!
 
 <b>2.5</b> On the following screen, select the input folder *device-operating-data*. Then, click the *Choose* button.
 
-![Data Factory 009](/images/chapter6/DF_009.png)
+![Data Factory 009](images/chapter6/DF_009.png)
 
 <b>2.6</b> On the following screen, click the check box for copying files recursively. Click the *Next* button to continue.
 
-![Data Factory 010](/images/chapter6/DF_010.png)
+![Data Factory 010](images/chapter6/DF_010.png)
 
 <b>2.7 A</b> - Azure Data Factory will then scan the files selected and automatically detect the File Format settings.
 
@@ -94,7 +94,7 @@ This completes the exercise!
 
 <b>2.8</b> - On the Destination data store screen, select Azure Data Lake Store from the list. Click the *Next* button to continue. 
 
-![Data Factory 013](/images/chapter6/DF_013.png)
+![Data Factory 013](images/chapter6/DF_013.png)
 
 <b>2.9</b> - Next we will enter the Azure Data Lake Store connection details. 
 
@@ -114,7 +114,7 @@ This completes the exercise!
 
 Select *Preserve hierarchy* and click the *Next* button to continue. 
 
-![Data Factory 015](/images/chapter6/DF_015.png)
+![Data Factory 015](images/chapter6/DF_015.png)
 
 <b>2.10</b> The next step is to control how the data gets saved. Make sure the *Add header to file* checkbox is checked. Click the *Next* button to continue.
 
@@ -127,7 +127,7 @@ Select *Preserve hierarchy* and click the *Next* button to continue.
 
 <b>2.12</b> - The summary screen contains a detail list of the options selected for the Copy Wizard. Click the *Authorize* button to enter account information required on step 2.9. Click the *Next* button to continue.
 
-![Data Factory 018](/images/chapter6/DF_018.png)
+![Data Factory 018](images/chapter6/DF_018.png)
 
 <b>2.13</b> - A popup window will prompt for Azure account information. Sign in to continue.
 
@@ -135,15 +135,15 @@ Select *Preserve hierarchy* and click the *Next* button to continue.
 
 <b>2.14</b> - Review the Summary page. Once approved, click the *Next* button to begin the deployment process of the Azure Data Factory.
 
-![Data Factory 020](/images/chapter6/DF_020.png)
+![Data Factory 020](images/chapter6/DF_020.png)
 
 <b>2.15</b> - Once deployment is complete, follow the *Click here to monitor copy pipeline* link.
 
-![Data Factory 021](/images/chapter6/DF_021.png)
+![Data Factory 021](images/chapter6/DF_021.png)
 
 <b>2.16</b> - The Azure Data Factory Resource Explorer will be displayed. In the lower middle section, under ACTIVITY WINDOWS, the currently deployed pipeline will be displayed. Monitor the duration to see how long the copy process will take to complete.
 
-![Data Factory 022](/images/chapter6/DF_022.png)
+![Data Factory 022](images/chapter6/DF_022.png)
 
 This completes the exercise!
 
