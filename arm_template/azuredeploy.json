@@ -1,0 +1,259 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "basename": {
+            "defaultValue": "predictivemaintenance",
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 15,
+            "metadata": {
+                "description": "Base name for resources in this resource group"
+            }
+        },
+        "sqlAdminPassword": {
+            "type": "securestring",
+            "minLength": 8,
+            "maxLength": 16,
+            "metadata": {
+                "description": "Password for the data warehouse 'admin' account"
+            }
+        }
+    },
+    "variables": {},
+    "resources": [{
+            "type": "Microsoft.DataLakeStore/accounts",
+            "name": "[concat(parameters('basename'),'dls',uniquestring(resourceGroup().id))]",
+            "apiVersion": "2015-10-01-preview",
+            "location": "eastus2",
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Devices/IotHubs",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "capacity": 1
+            },
+            "name": "[concat(parameters('basename'),'ioth',uniquestring(resourceGroup().id))]",
+            "apiVersion": "2016-02-03",
+            "location": "eastus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "ipFilterRules": [],
+                "eventHubEndpoints": {
+                    "events": {
+                        "retentionTimeInDays": 1,
+                        "partitionCount": 2,
+                        "partitionIds": [
+                            "0",
+                            "1"
+                        ]
+                    },
+                    "operationsMonitoringEvents": {
+                        "retentionTimeInDays": 1,
+                        "partitionCount": 2,
+                        "partitionIds": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                },
+                "routing": {
+                    "endpoints": {
+                        "serviceBusQueues": [],
+                        "serviceBusTopics": [],
+                        "eventHubs": []
+                    },
+                    "routes": [],
+                    "fallbackRoute": {
+                        "name": "$fallback",
+                        "source": "DeviceMessages",
+                        "condition": "true",
+                        "endpointNames": [
+                            "events"
+                        ],
+                        "isEnabled": true
+                    }
+                },
+                "storageEndpoints": {
+                    "$default": {
+                        "sasTtlAsIso8601": "PT1H",
+                        "connectionString": "",
+                        "containerName": ""
+                    }
+                },
+                "enableFileUploadNotifications": false,
+                "cloudToDevice": {
+                    "maxDeliveryCount": 10,
+                    "defaultTtlAsIso8601": "PT1H",
+                    "feedback": {
+                        "lockDurationAsIso8601": "PT1M",
+                        "ttlAsIso8601": "PT1H",
+                        "maxDeliveryCount": 10
+                    }
+                },
+                "operationsMonitoringProperties": {
+                    "events": {
+                        "None": "None",
+                        "Connections": "None",
+                        "DeviceTelemetry": "None",
+                        "C2DCommands": "None",
+                        "DeviceIdentityOperations": "None",
+                        "FileUploadOperations": "None",
+                        "Routes": "None"
+                    }
+                },
+                "features": "None"
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.MachineLearning/commitmentPlans",
+            "sku": {
+                "name": "DevTest",
+                "tier": "Standard",
+                "capacity": 1
+            },
+            "name": "[concat(parameters('basename'),'mlcp',uniquestring(resourceGroup().id))]",
+            "apiVersion": "2016-05-01-preview",
+            "location": "southcentralus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "chargeForOverage": false,
+                "chargeForPlan": false,
+                "maxAssociationLimit": 10000,
+                "maxCapacityLimit": 1,
+                "minCapacityLimit": 1,
+                "planMeter": "00000000-0000-0000-0000-000000000000",
+                "refillFrequencyInDays": 30,
+                "suspendPlanOnOverage": true
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.MachineLearning/webServices",
+            "name": "[concat(parameters('basename'),'mlwebs',uniquestring(resourceGroup().id))]",
+            "apiVersion": "2016-05-01-preview",
+            "location": "South Central US",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "title": "Predictive Maintenance [Predictive Exp.]",
+                "readOnly": false,
+                "realtimeConfiguration": {
+                    "maxConcurrentCalls": 20
+                },
+                "diagnostics": {
+                    "level": "None"
+                },
+                "storageAccount": {
+                    "name": "predictivemaintenstorage"
+                },
+                "packageType": "Graph",
+                "exposeSampleData": false
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.MachineLearning/Workspaces",
+            "name": "[concat(parameters('basename'),'mlwrks',uniquestring(resourceGroup().id))]",
+            "apiVersion": "2016-04-01",
+            "location": "South Central US",
+            "scale": null,
+            "properties": {
+                "userStorageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',concat(parameters('basename'),'st',uniquestring(resourceGroup().id)))]",
+                "keyVaultIdentifierId": null,
+                "ownerEmail": ""
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts',concat(parameters('basename'),'st',uniquestring(resourceGroup().id)))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Sql/servers",
+            "kind": "v12.0",
+            "name": "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id))]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "administratorLogin": "admin",
+                "administratorLoginPassword": "[parameters('sqlAdminPassword')]",
+                "version": "12.0"
+            },
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[concat(parameters('basename'),'sta',uniquestring(resourceGroup().id))]",
+            "apiVersion": "2016-01-01",
+            "location": "southcentralus",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "kind": "v12.0,system",
+            "name": "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id),'/master')]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "edition": "System",
+                "status": "Online",
+                "serviceLevelObjective": "System0",
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "32212254720",
+                "requestedServiceObjectiveName": "System0",
+                "sampleName": null,
+                "defaultSecondaryLocation": "Central US",
+                "earliestRestoreDate": null,
+                "elasticPoolName": null,
+                "containmentState": 2,
+                "readScale": "Disabled",
+                "failoverGroupId": null
+            },
+            "dependsOn": [
+                "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id))]"
+            ]
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "kind": "v12.0,user,datawarehouse",
+            "name": "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id),'/DataWarehouse')]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "East US 2",
+            "scale": null,
+            "properties": {
+                "edition": "DataWarehouse",
+                "status": "Paused",
+                "serviceLevelObjective": "DW400",
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "263882790666240",
+                "requestedServiceObjectiveName": "DW400",
+                "sampleName": null,
+                "defaultSecondaryLocation": "Central US",
+                "earliestRestoreDate": null,
+                "elasticPoolName": null,
+                "containmentState": 2,
+                "readScale": "Disabled",
+                "failoverGroupId": null
+            },
+            "dependsOn": [
+                "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id))]"
+            ]
+        }
+    ]
+}
