@@ -11,7 +11,6 @@ This template deploys an Azure Resource group comprised of several resources tha
 * Data Lake Store
 * IoT Hub
 * Machine Learning Workspace
-* Machine Learning Web Service Plan
 * Storage Account
 * Stream Analytics Job
 * SQL Server and SQL Data Warehouse

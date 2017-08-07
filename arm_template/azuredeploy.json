@@ -165,35 +165,6 @@
             "dependsOn": []
         },
         {
-            "type": "Microsoft.MachineLearning/webServices",
-            "name": "[variables('mlWebServiceName')]",
-            "apiVersion": "2016-05-01-preview",
-            "location": "South Central US",
-            "tags": {},
-            "scale": null,
-            "properties": {
-                "title": "Predictive Maintenance [Predictive Exp.]",
-                "commitmentPlan": "[resourceId('Microsoft.MachineLearning/commitmentPlans', variables('mlCommitmentPlanName'))]",
-                "readOnly": false,
-                "realtimeConfiguration": {
-                    "maxConcurrentCalls": 20
-                },
-                "diagnostics": {
-                    "level": "None"
-                },
-                "storageAccount": {
-                    "name": "[variables('storageAccountName')]",
-                    "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
-                },
-                "packageType": "Graph",
-                "exposeSampleData": false
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                "[resourceId('Microsoft.MachineLearning/commitmentPlans', variables('mlCommitmentPlanName'))]"
-            ]
-        },
-        {
             "type": "Microsoft.MachineLearning/Workspaces",
             "name": "[variables('mlWorkspaceName')]",
             "apiVersion": "2016-04-01",
