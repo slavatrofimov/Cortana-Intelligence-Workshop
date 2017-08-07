@@ -330,7 +330,7 @@ CREATE EXTERNAL TABLE dbo.DeviceReferenceExternal (
     [Maintenance Run Time] int NULL
 )
 WITH (
-    LOCATION='/device-operating-data/DeviceReferenceData.csv'
+    LOCATION='/referencedata/DeviceReferenceData.csv'
     , DATA_SOURCE = AzureDataLakeStore
     , FILE_FORMAT = DeviceTelemetryDelimitedText
     ,REJECT_TYPE = VALUE

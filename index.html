@@ -1315,7 +1315,7 @@ CREATE STATISTICS DeviceTelemetryDeviceIdStats on dbo.DeviceTelemetry(DeviceId);
     [Maintenance Run Time] int NULL
 )
 WITH (
-    LOCATION=&#39;/device-operating-data/DeviceReferenceData.csv&#39;
+    LOCATION=&#39;/referencedata/DeviceReferenceData.csv&#39;
     , DATA_SOURCE = AzureDataLakeStore
     , FILE_FORMAT = DeviceTelemetryDelimitedText
     ,REJECT_TYPE = VALUE
