@@ -143,7 +143,7 @@ Select *Preserve hierarchy* and click the *Next* button to continue.
 
 <b>2.16</b> - The Azure Data Factory Resource Explorer will be displayed. In the lower middle section, under ACTIVITY WINDOWS, the currently deployed pipeline will be displayed. Monitor the duration to see how long the copy process will take to complete.
 
-![Data Factory 022](images/chapter6/DF_022.png)
+<img src="images/chapter6/DF_022.png" class="img-large" />
 
 This completes the exercise!
 
