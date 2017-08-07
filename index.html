@@ -1302,7 +1302,21 @@ FROM dbo.DeviceTelemetryExternal
 
 CREATE STATISTICS DeviceTelemetryDeviceIdStats on dbo.DeviceTelemetry(DeviceId);
 </code></pre>
-<p>Now, let&#39;s create an external table and load reference data describing each of the devices.</p>
+<p>Now, let&#39;s retrieve reference data describing each of the devices. We will retrieve reference data from KiZAN&#39;s blob storage account. Before we can access the data, let us create another database-scoped credential.</p>
+<pre><code class="lang-sql">CREATE DATABASE SCOPED CREDENTIAL AzureStorageCredential
+WITH
+    IDENTITY = &#39;AzureDWUser&#39;,
+    SECRET = &#39;&lt;azure_storage_account_key&gt;&#39; --This secret key will be provided to you during the workshop.
+;
+
+CREATE EXTERNAL DATA SOURCE AzureStorage
+WITH (
+    TYPE = HADOOP,
+    LOCATION = &#39;wasbs://kizandevices.blob.core.windows.net&#39;,
+    CREDENTIAL = AzureStorageCredential
+);
+</code></pre>
+<p>Now that the credentials to the Azure Storage Account have been created, let&#39;s create external tables and load the reference data.</p>
 <pre><code class="lang-sql">CREATE EXTERNAL TABLE dbo.DeviceReferenceExternal (
     [Device Id] [varchar](100) NULL,
     [Motor Type] [varchar](100) NULL,
@@ -1316,7 +1330,7 @@ CREATE STATISTICS DeviceTelemetryDeviceIdStats on dbo.DeviceTelemetry(DeviceId);
 )
 WITH (
     LOCATION=&#39;/referencedata/DeviceReferenceData.csv&#39;
-    , DATA_SOURCE = AzureDataLakeStore
+    , DATA_SOURCE = AzureStorage
     , FILE_FORMAT = DeviceTelemetryDelimitedText
     ,REJECT_TYPE = VALUE
     ,REJECT_VALUE = 100
