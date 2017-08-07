@@ -1,6 +1,12 @@
-# Quick Start Guide Template
 
-This is a template for building quick start guides.
+#Cortana Intelligence Workshop
+
+This project is used to develop a website with instructions for a Cortana Intelligence Workshop. The actual website is hosted on GitHub at https://slavatrofimov.github.io/Cortana-Intelligence-Workshop/.
+
+
+## Quick Start Guide Template
+
+This website is an adaptation of a quick-start template (https://github.com/tjvantoll/quick-start-template).
 
 ## Setup
 
