@@ -61,7 +61,7 @@ Define the details for the input:
 4. Set import option to *Provide IoT hub settings manually*
 5. Set IoT hub to *IOTH-KiZANCortanaWS01*
 6. Set endpoint to *Messaging*
-7. Set shared access policy name to *device*
+7. Set shared access policy name to *service*
 8. Shared access policy key: **Your shared access policy key will be provided during the workshop**
 9. Consumer group: **Your consumer group name will be provided to you during the workshop**
 10. Set event serialization format to *JSON*

@@ -35,7 +35,7 @@ Specify the parameters of the IoT Hub:
 
 Once the IoT Hub has been created, take a few moments to review the IoT Hub blade in your Azure Portal and familiarize yourself with the features and parameters of the IoT Hub.
 
-> **NOTE:** Provisioning of an IoT Hub is a key part of building an real-time analytics solution for connected devices. During this workshop, we will be using an IoT Hub provisioned by KiZAN. Therefore, the IoT Hub that you had just provisioned will be present in your subscription, but will not be actively used throughout the remainder of the workshop.
+> **NOTE:** Provisioning of an IoT Hub is a key part of building a real-time analytics solution for connected devices. During this workshop, we will be using an IoT Hub provisioned by KiZAN. Therefore, the IoT Hub that you had just provisioned will be present in your subscription, but will not be actively used throughout the remainder of the workshop.
 
 <div class="exercise-end"></div>
 
