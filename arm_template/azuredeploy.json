@@ -2,28 +2,66 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "basename": {
-            "defaultValue": "predictivemaintenance",
+        "resourceNamePrefix": {
+            "defaultValue": "pmaint",
             "type": "string",
-            "minLength": 5,
-            "maxLength": 15,
+            "minLength": 3,
+            "maxLength": 7,
             "metadata": {
-                "description": "Base name for resources in this resource group"
+                "description": "Prefix for the names of resources that will be created (5-12 characters long, lower-case letters or numbers)"
             }
         },
-        "sqlAdminPassword": {
-            "type": "securestring",
-            "minLength": 8,
-            "maxLength": 16,
+        "dwAdminUserName": {
+            "defaultValue": "sqldwadmin",
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 20,
             "metadata": {
-                "description": "Password for the data warehouse 'admin' account"
+                "description": "Data warehouse administator user name"
+            }
+        },
+        "dwAdminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Data warehouse administrator password"
+            }
+        },
+        "iotHubSharedAccessPolicyKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Shared Access Policy Key for the IoT Hub"
+            }
+        },
+        "iotHubConsumerGroupName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100,
+            "metadata": {
+                "description": "Name of the Consumer Group used to read a stream of events from the IoT Hub"
+            }
+        },
+        "referenceDataStorageAccountKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Key to the Storage Account containing reference data for the Stream Analytics job."
             }
         }
     },
-    "variables": {},
+    "variables": {
+        "storageAccountName": "[concat(parameters('resourceNamePrefix'),'s',uniquestring(resourceGroup().id))]",
+        "mlStorageAccountName": "[concat(parameters('resourceNamePrefix'),'mls',uniquestring(resourceGroup().id))]",
+        "dataLakeStoreName": "[concat(parameters('resourceNamePrefix'),'dls',uniquestring(resourceGroup().id))]",
+        "iotHubName": "[concat(parameters('resourceNamePrefix'),'ioth',uniquestring(resourceGroup().id))]",
+        "mlCommitmentPlanName": "[concat(parameters('resourceNamePrefix'),'mlcp',uniquestring(resourceGroup().id))]",
+        "mlWebServiceName": "[concat(parameters('resourceNamePrefix'),'mlwebs',uniquestring(resourceGroup().id))]",
+        "mlWorkspaceName": "[concat(parameters('resourceNamePrefix'),'mlwrks',uniquestring(resourceGroup().id))]",
+        "sqlServerName": "[concat(parameters('resourceNamePrefix'),'sqls',uniquestring(resourceGroup().id))]",
+        "sqlDataWarehouseName": "[concat(parameters('resourceNamePrefix'), 'sqls', uniquestring(resourceGroup().id),'/prmaintDW')]",
+        "streamAnalyticsJobName": "[concat(parameters('resourceNamePrefix'),'saj',uniquestring(resourceGroup().id))]"
+    },
     "resources": [{
             "type": "Microsoft.DataLakeStore/accounts",
-            "name": "[concat(parameters('basename'),'dls',uniquestring(resourceGroup().id))]",
+            "name": "[variables('dataLakeStoreName')]",
             "apiVersion": "2015-10-01-preview",
             "location": "eastus2",
             "scale": null,
@@ -33,11 +71,11 @@
         {
             "type": "Microsoft.Devices/IotHubs",
             "sku": {
-                "name": "F1",
-                "tier": "Free",
+                "name": "S1",
+                "tier": "Standard",
                 "capacity": 1
             },
-            "name": "[concat(parameters('basename'),'ioth',uniquestring(resourceGroup().id))]",
+            "name": "[variables('iotHubName')]",
             "apiVersion": "2016-02-03",
             "location": "eastus",
             "tags": {},
@@ -114,36 +152,28 @@
         {
             "type": "Microsoft.MachineLearning/commitmentPlans",
             "sku": {
-                "name": "DevTest",
+                "name": "S1",
                 "tier": "Standard",
                 "capacity": 1
             },
-            "name": "[concat(parameters('basename'),'mlcp',uniquestring(resourceGroup().id))]",
+            "name": "[variables('mlCommitmentPlanName')]",
             "apiVersion": "2016-05-01-preview",
-            "location": "southcentralus",
+            "location": "South Central US",
             "tags": {},
             "scale": null,
-            "properties": {
-                "chargeForOverage": false,
-                "chargeForPlan": false,
-                "maxAssociationLimit": 10000,
-                "maxCapacityLimit": 1,
-                "minCapacityLimit": 1,
-                "planMeter": "00000000-0000-0000-0000-000000000000",
-                "refillFrequencyInDays": 30,
-                "suspendPlanOnOverage": true
-            },
+            "properties": {},
             "dependsOn": []
         },
         {
             "type": "Microsoft.MachineLearning/webServices",
-            "name": "[concat(parameters('basename'),'mlwebs',uniquestring(resourceGroup().id))]",
+            "name": "[variables('mlWebServiceName')]",
             "apiVersion": "2016-05-01-preview",
             "location": "South Central US",
             "tags": {},
             "scale": null,
             "properties": {
                 "title": "Predictive Maintenance [Predictive Exp.]",
+                "commitmentPlan": "[resourceId('Microsoft.MachineLearning/commitmentPlans', variables('mlCommitmentPlanName')]",
                 "readOnly": false,
                 "realtimeConfiguration": {
                     "maxConcurrentCalls": 20
@@ -152,38 +182,39 @@
                     "level": "None"
                 },
                 "storageAccount": {
-                    "name": "predictivemaintenstorage"
+                    "name": "[variables('storageAccountName')]",
+                    "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
                 },
                 "packageType": "Graph",
                 "exposeSampleData": false
             },
-            "dependsOn": []
+            "dependsOn": ["[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"]
         },
         {
             "type": "Microsoft.MachineLearning/Workspaces",
-            "name": "[concat(parameters('basename'),'mlwrks',uniquestring(resourceGroup().id))]",
+            "name": "[variables('mlWorkspaceName')]",
             "apiVersion": "2016-04-01",
             "location": "South Central US",
             "scale": null,
             "properties": {
-                "userStorageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',concat(parameters('basename'),'st',uniquestring(resourceGroup().id)))]",
+                "userStorageAccountId": "[resourceId('Microsoft.Storage/storageAccounts',variables('mlStorageAccountName'))]",
                 "keyVaultIdentifierId": null,
                 "ownerEmail": ""
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts',concat(parameters('basename'),'st',uniquestring(resourceGroup().id)))]"
+                "[resourceId('Microsoft.Storage/storageAccounts',variables('mlStorageAccountName'))]"
             ]
         },
         {
             "type": "Microsoft.Sql/servers",
             "kind": "v12.0",
-            "name": "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id))]",
+            "name": "[variables('sqlServerName')]",
             "apiVersion": "2014-04-01-preview",
             "location": "East US 2",
             "scale": null,
             "properties": {
-                "administratorLogin": "admin",
-                "administratorLoginPassword": "[parameters('sqlAdminPassword')]",
+                "administratorLogin": "[parameters('dwAdminUserName')]",
+                "administratorLoginPassword": "[parameters('dwAdminPassword')]",
                 "version": "12.0"
             },
             "dependsOn": []
@@ -195,9 +226,24 @@
                 "tier": "Standard"
             },
             "kind": "Storage",
-            "name": "[concat(parameters('basename'),'sta',uniquestring(resourceGroup().id))]",
+            "name": "[variables('storageAccountName')]",
             "apiVersion": "2016-01-01",
-            "location": "southcentralus",
+            "location": "East US 2",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[variables('mlStorageAccountName')]",
+            "apiVersion": "2016-01-01",
+            "location": "South Central US",
             "tags": {},
             "scale": null,
             "properties": {},
@@ -205,44 +251,17 @@
         },
         {
             "type": "Microsoft.Sql/servers/databases",
-            "kind": "v12.0,system",
-            "name": "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id),'/master')]",
-            "apiVersion": "2014-04-01-preview",
-            "location": "East US 2",
-            "scale": null,
-            "properties": {
-                "edition": "System",
-                "status": "Online",
-                "serviceLevelObjective": "System0",
-                "collation": "SQL_Latin1_General_CP1_CI_AS",
-                "maxSizeBytes": "32212254720",
-                "requestedServiceObjectiveName": "System0",
-                "sampleName": null,
-                "defaultSecondaryLocation": "Central US",
-                "earliestRestoreDate": null,
-                "elasticPoolName": null,
-                "containmentState": 2,
-                "readScale": "Disabled",
-                "failoverGroupId": null
-            },
-            "dependsOn": [
-                "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id))]"
-            ]
-        },
-        {
-            "type": "Microsoft.Sql/servers/databases",
             "kind": "v12.0,user,datawarehouse",
-            "name": "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id),'/DataWarehouse')]",
+            "name": "[variables('sqlDataWarehouseName')]",
             "apiVersion": "2014-04-01-preview",
             "location": "East US 2",
             "scale": null,
             "properties": {
                 "edition": "DataWarehouse",
-                "status": "Paused",
-                "serviceLevelObjective": "DW400",
+                "serviceLevelObjective": "DW100",
                 "collation": "SQL_Latin1_General_CP1_CI_AS",
                 "maxSizeBytes": "263882790666240",
-                "requestedServiceObjectiveName": "DW400",
+                "requestedServiceObjectiveName": "DW100",
                 "sampleName": null,
                 "defaultSecondaryLocation": "Central US",
                 "earliestRestoreDate": null,
@@ -252,8 +271,80 @@
                 "failoverGroupId": null
             },
             "dependsOn": [
-                "[concat(parameters('basename'),'sqls',uniquestring(resourceGroup().id))]"
+                "[variables('sqlServerName')]"
             ]
+        },
+        {
+            "apiVersion": "2016-03-01",
+            "Type": "Microsoft.StreamAnalytics/streamingjobs",
+            "Location": "East US 2",
+            "name": "[variables('streamAnalyticsJobName')]",
+            "Properties": {
+                "DataLocale": "en-US",
+                "EventsLateArrivalMaxDelayInSeconds": 5,
+                "EventsOutOfOrderMaxDelayInSeconds": 0,
+                "EventsOutOfOrderPolicy": "Adjust",
+                "Functions": [],
+                "Inputs": [{
+                        "Name": "KiZAN-IoT-Device-Reference-Data",
+                        "Properties": {
+                            "DataSource": {
+                                "Properties": {
+                                    "Container": "referencedata",
+                                    "PathPattern": "DeviceReferenceData.csv",
+                                    "StorageAccounts": [{
+                                        "AccountKey": "[parameters('referenceDataStorageAccountKey')]",
+                                        "AccountName": "kizandevices"
+                                    }]
+                                },
+                                "Type": "Microsoft.Storage/Blob"
+                            },
+                            "Serialization": {
+                                "Properties": {
+                                    "Encoding": "UTF8",
+                                    "FieldDelimiter": ","
+                                },
+                                "Type": "Csv"
+                            },
+                            "Type": "Reference"
+                        }
+                    },
+                    {
+                        "Name": "KiZAN-IoT-Hub",
+                        "Properties": {
+                            "DataSource": {
+                                "Properties": {
+                                    "ConsumerGroupName": "[parameters('iotHubConsumerGroupName')]",
+                                    "IotHubNamespace": "IOTH-KiZANCortanaWS01",
+                                    "Endpoint": "messages/events",
+                                    "SharedAccessPolicyKey": "[parameters('referenceDataStorageAccountKey')]",
+                                    "SharedAccessPolicyName": "service"
+                                },
+                                "Type": "Microsoft.Devices/IotHubs"
+                            },
+                            "Serialization": {
+                                "Properties": {
+                                    "Encoding": "UTF8",
+                                    "Format": null
+                                },
+                                "Type": "Json"
+                            },
+                            "Type": "Stream"
+                        }
+                    }
+                ],
+                "Outputs": [],
+                "Sku": {
+                    "Name": "Standard"
+                },
+                "Transformation": {
+                    "Name": "Transformation",
+                    "Properties": {
+                        "Query": "--Summarize temperature data for each 1-minute period\r\nWITH [TemperatureByDevice1Minute]  AS (\r\nSELECT T.deviceId AS [Device Id],\r\n    System.Timestamp AS [Event Time],\r\n    AVG(CAST(T.tempF as float)) AS [TempF Mean - 1 Minute],\r\n    STDEV(CAST(T.tempF as float)) AS [TempF StDev - 1 Minute],\r\n    MAX(CAST(T.tempF as float)) - MIN(CAST(T.tempF as float)) AS [TempF Range - 1 Minute],\r\n    MAX(CAST(T.tempF as float)) AS [TempF Max - 1 Minute]\r\nFROM\r\n    [KiZAN-IoT-Hub] T TimeStamp By [EventEnqueuedUtcTime]\r\nWHERE T.tempF BETWEEN 50 AND 250\r\nGROUP BY HoppingWindow(second, 60, 30),\r\n    T.deviceId    \r\n)\r\n\r\n--Summarize temperature data for each 15-minute period\r\n, [TemperatureByDevice15Minutes]  AS (\r\nSELECT T.deviceId AS [Device Id],\r\n    System.Timestamp AS [Event Time],\r\n    AVG(CAST(T.tempF as float)) AS [TempF Mean - 15 Minutes],\r\n    STDEV(CAST(T.tempF as float)) AS [TempF StDev - 15 Minutes],\r\n    MAX(CAST(T.tempF as float)) - MIN(CAST(T.tempF as float)) AS [TempF Range - 15 Minutes],\r\n    MAX(CAST(T.tempF as float)) AS [TempF Max - 15 Minutes]\r\nFROM\r\n    [KiZAN-IoT-Hub] T TimeStamp By [EventEnqueuedUtcTime]\r\nWHERE T.tempF BETWEEN 50 AND 250\r\nGROUP BY HoppingWindow(second, 900, 30),\r\n    T.deviceId\r\n)\r\n\r\n--Summarize temperatures by device over a 24-hour period\r\n, [TemperaturesByDevice24Hours] AS (\r\nSELECT\r\n    System.Timestamp AS [Time Stamp],\r\n    T.[deviceId] AS [Device ID],\r\n    CEILING(CAST(T.[tempF] as float)) AS [Temperature],\r\n    MAX(CAST(T.[runTime] AS bigint)) AS [Run Time],\r\n    COUNT(*) AS [Record Count]\r\nFROM\r\n    [KiZAN-IoT-Hub] T TimeStamp By [EventEnqueuedUtcTime]\r\nWHERE T.tempF BETWEEN 50 AND 250\r\nGROUP BY HoppingWindow(second, 86400, 30),\r\n    T.[deviceId],\r\n    CEILING(CAST(T.[tempF] as float))\r\n)\r\n\r\n--Summarize excessive temperature events over a 24-hour period\r\n, [TemperatureAlertsByDevice24Hours] AS (\r\nSELECT\r\n    system.timestamp AS [Time Stamp],\r\n    T.[Device ID],\r\n    RD.[Motor Type],\r\n    RD.[Device Type],\r\n    MAX(T.[Run Time] - CAST(RD.[Maintenance Run Time] as bigint)) AS [Run Time Since Maintenance],\r\n    MAX(T.[Run Time] - CAST(RD.[Overhaul Run Time] as bigint)) AS [Run Time Since Overhaul],\r\n    MAX(T.[Run Time]) AS [Run Time Since Production],\r\n    DATEDIFF(day, CAST(RD.[Overhaul Date] AS datetime), System.Timestamp) AS [Age Since Overhaul],\r\n    DATEDIFF(day, CAST(RD.[Production Date] AS datetime), System.Timestamp) AS [Age Since Production],\r\n    SUM(\r\n        CASE WHEN T.Temperature > (CAST(RD.[Max Operating Temperature] as float))\r\n        THEN T.[Record Count]\r\n        ELSE 0\r\n        END) AS [Observations Above Max Temp - 24 Hours]\r\nFROM\r\n    [TemperaturesByDevice24Hours] T\r\n    INNER JOIN [KiZAN-IoT-Device-Reference-Data] RD\r\n        ON T.[Device Id] = RD.[Device Id]\r\nGROUP BY  system.timestamp,\r\n    T.[Device ID],\r\n    RD.[Motor Type],\r\n    RD.[Device Type],\r\n    RD.[Overhaul Date],\r\n    RD.[Production Date]\r\n)\r\n\r\n, DataWithPredictions AS (\r\nSELECT\r\n    System.Timestamp AS [Time Stamp],\r\n    T1M.[Device ID],\r\n    T24H.[Motor Type],\r\n    T24H.[Device Type],\r\n    T24H.[Run Time Since Maintenance],\r\n    T24H.[Run Time Since Overhaul],\r\n    T24H.[Run Time Since Production],\r\n    T24H.[Age Since Overhaul],\r\n    T24H.[Age Since Production],\r\n    --Summaries for each 1-minute period\r\n    T1M.[TempF Mean - 1 Minute],\r\n    T1M.[TempF StDev - 1 Minute],\r\n    T1M.[TempF Range - 1 Minute],\r\n    T1M.[TempF Max - 1 Minute],\r\n    --Summaries for each 15 minute interval\r\n    T15M.[TempF Mean - 15 Minutes],\r\n    T15M.[TempF StDev - 15 Minutes],\r\n    T15M.[TempF Range - 15 Minutes],\r\n    T15M.[TempF Max - 15 Minutes],\r\n    T24H.[Observations Above Max Temp - 24 Hours],\r\n    --Call Azure Machine Learning web service to get a Remaining Useful Life prediction\r\n    RemainingUsefulLife(\r\n        T24H.[Motor Type],\r\n        T24H.[Device Type],\r\n        T24H.[Run Time Since Maintenance],\r\n        T24H.[Run Time Since Overhaul],\r\n        T24H.[Run Time Since Production],\r\n        T24H.[Age Since Overhaul],\r\n        T24H.[Age Since Production],\r\n        T1M.[TempF Mean - 1 Minute],\r\n        T1M.[TempF StDev - 1 Minute],\r\n        T1M.[TempF Range - 1 Minute],\r\n        T1M.[TempF Max - 1 Minute],\r\n        T15M.[TempF Mean - 15 Minutes],\r\n        T15M.[TempF StDev - 15 Minutes],\r\n        T15M.[TempF Range - 15 Minutes],\r\n        T15M.[TempF Max - 15 Minutes],\r\n        T24H.[Observations Above Max Temp - 24 Hours]\r\n        ) AS [Remaining Useful Life]\r\nFROM\r\n    [TemperatureByDevice1Minute] T1M\r\n    INNER JOIN [TemperatureByDevice15Minutes] T15M\r\n        ON T1M.[Device Id] = T15M.[Device Id]\r\n        AND DATEDIFF(second,T1M,T15M) = 0\r\n    INNER JOIN [TemperatureAlertsByDevice24Hours] T24H\r\n        ON T1M.[Device Id] = T24H.[Device Id]\r\n        AND DATEDIFF(second,T1M,T24H) = 0\r\n)\r\n\r\n--Push data with predictions to PowerBI\r\nSELECT *\r\nINTO [PowerBI]\r\nFROM DataWithPredictions\r\n\r\n--Store data with predictions in Azure Data Lake Store\r\nSELECT *\r\nINTO [DataLakeStore]\r\nFROM DataWithPredictions",
+                        "StreamingUnits": 1
+                    }
+                }
+            }
         }
     ]
 }
