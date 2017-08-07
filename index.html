@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Workshop - Predictive Maintenance Solution with Cortana Intelligence</title>
+
+    <meta charset="utf-8">
+    <meta name="description" content="Workshop - Predictive Maintenance Solution with Cortana Intelligence">
+    <meta name="author" content="Slava Trofimov">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="header">
+            <a href="#" class="menu header-btn" id="toggle-toc"></a>
+            <h1>Predictive Maintenance Solution with Cortana Intelligence</h1>
+            </a>
+        </div>
+
+        <div id="content-container">
+            <div id="toc">
+                <div class="toc-heading">Table of Contents</div>
+                <div id="toc-padding"></div>
+            </div>
+            <div id="book">
+                <div class="chapter">
+                    <h2 id="introduction">Introduction</h2>
+<p>Welcome to the Real-Time Predictive Maintenance Solution with Cortana Intelligence Workshop!</p>
+<h3 id="about-the-workshop">About the Workshop</h3>
+<p>Build an end-to-end real-time predictive maintenance solution using Azure Machine learning, IoT Hubs, Stream Analytics, and Power BI. In this workshop you&#39;ll also learn how to store and manipulate massive amounts of data using Azure Data Lake Store and Azure Data Warehouse. The workshop is heavily focused on:</p>
+<ul>
+<li>Machine Learning</li>
+<li>Real-Time Analytics </li>
+<li>Big Data Analytics</li>
+</ul>
+<p>The workshop is presented by:</p>
+<ul>
+<li>Slava Trofimov <a href="http://kizan.com">KiZAN Technologies</a></li>
+<li>Lucas Feiock <a href="http://kizan.com">KiZAN Technologies</a></li>
+<li>Mike Branstein <a href="http://kizan.com">KiZAN Technologies</a></li>
+</ul>
+<h3 id="agenda">Agenda</h3>
+<h4 id="machine-learning">Machine Learning</h4>
+<ul>
+<li>Provision a resource group for the experiment</li>
+<li>Provision a machine learning workspace, </li>
+<li>Build a machine learning model to predict remaining useful life of a device, and publish as a web service</li>
+</ul>
+<h4 id="real-time-analytics">Real-Time Analytics</h4>
+<ul>
+<li>Provision Data Lake Store</li>
+<li>Provision, configure and start a Stream Analytics job</li>
+<li>Invoke a machine learning function to predict remaining useful life</li>
+<li>Build a Power BI report and dashboard to visualize streaming data</li>
+</ul>
+<h4 id="big-data">Big Data</h4>
+<ul>
+<li>Provision Azure Data Factory; create and execute a job to copy additional data from KiZAN&#39;s blob storage to Azure Data Lake Store</li>
+<li>Provision an Azure SQL Data Warehouse</li>
+<li>Register an Application with Azure Active Directory and grant permissions to the Azure Data Lake Store</li>
+<li>Load data from Azure Data Lake Store to Azure SQL Data Warehouse</li>
+<li>Query Azure SQL Data Warehouse</li>
+<li>Connect to Azure SQL Data Warehouse using Power BI and create a report</li>
+</ul>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li><strong>Computer</strong> with a modern Web browser and internet access (the computer may run any operating system and does not require any special software besides the web browser)</li>
+<li><strong>Access to a Microsoft Azure subscription</strong> with permissions to create resource groups and other resources </li>
+<li><strong>Access to a Power BI account</strong> (either a free or a Pro account)</li>
+</ul>
+
+                </div>
+                <hr>
+                <div class="chapter">
+                    <h2 id="complete-the-prerequisites">Complete the Prerequisites</h2>
+<p>An Azure subscription and a Power BI account are required to complete the KiZAN Cortana Intelligence workshop. If you do not have these accounts already, this section will walk you through the process of activating free trials.</p>
+<h3 id="creating-a-trial-azure-subscription">Creating a Trial Azure Subscription</h3>
+<blockquote>
+<p><strong>NOTE:</strong> If you have an Azure subscription already, you can skip this section. If you have a Visual Studio subscription (formerly known as an MSDN account), you get free Azure credits every month. Check out the next section for activating these benefits.</p>
+</blockquote>
+<p>There are several ways to get an Azure subscription, such as the free trial subscription, the pay-as-you-go subscription, which has no minimums or commitments and can be canceled any time or an Enterprise agreement subscription. You can buy an Azure subscription directly from Microsoft or from a Microsoft Value Added Reseller. In this exercise, you&#39;ll create a free trial subscription.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Free Trial Subscription
+</h4>
+
+<p>Browse to the following page <a href="http://azure.microsoft.com/en-us/pricing/free-trial/">http://azure.microsoft.com/en-us/pricing/free-trial/</a> to obtain a free trial account.</p>
+<p><img src="/images/chapter1/Azure Trial/AzureTrial-1.png" alt="Start Free Trial"></p>
+<p>Click <em>Start free</em>.</p>
+<p><img src="/images/chapter1/Azure Trial/AzureTrial-2.png" alt="Start Free Trial"></p>
+<p>If you have a Microsoft account, enter the credentials for the Microsoft account that you want to use. You will be redirected to the Sign up page.</p>
+<blockquote>
+<p><strong>NOTE:</strong> If you do not have a Microsoft account, click <em>Create a new Microsoft account</em> and complete the following steps:.</p>
+<ul>
+<li><a href="/images/chapter1/Azure Trial/AzureTrial-3.png">Provide your user name and password and click <em>Next</em></a></li>
+<li><a href="/images/chapter1/Azure Trial/AzureTrial-4.png">Provide your phone number and press <em>Send code</em></a></li>
+<li><a href="/images/chapter1/Azure Trial/AzureTrial-7.png">Complete a 4-part registration form (similar to the one described below)</a></li>
+</ul>
+</blockquote>
+<p>Complete a 4-part registration form</p>
+<p><img src="/images/chapter1/Azure Trial/sign-up.png" alt="Free Trial Signup"></p>
+<ol>
+<li><strong>About you</strong> - provide basic personal information</li>
+<li><strong>Verification by phone</strong> - enter your mobile phone number, and click <em>Send text message</em>; when you receive the verification code, enter it in the corresponding box and click <em>Verify code</em></li>
+<li><strong>Verification by card</strong> - Enter your credit card information - <em>your card will not be charged unless you explicitly transition to a paid plan</em></li>
+<li><strong>Agreement</strong> - check the <em>I agree to the subscription Agreement</em>, <em>offer details</em>, and <em>privacy statement</em> option, and click <em>Sign up</em></li>
+</ol>
+<blockquote>
+<p><strong>NOTE:</strong> Your credit card will not be charged unless you explicitly transition to a paid plan. When your trial period expires or if you run out of credit, your services will be shut down unless you choose to be billed.</p>
+</blockquote>
+<p>Your free subscription will be set up, and you will soon be ready to start using it. </p>
+<p>Log into <a href="https://portal.azure.com">https://portal.azure.com</a> to access your subscription.
+<img src="/images/chapter1/Azure Trial/AzureTrial-5.png" alt="Log into Azure Portal"></p>
+<div class="exercise-end"></div>
+
+<h3 id="activating-visual-studio-subscription-benefits">Activating Visual Studio Subscription Benefits</h3>
+<p>If you happen to be a Visual Studio subscriber (formerly known as MSDN) you can activate your Azure Visual Studio subscription benefits. You can use your MSDN software in the cloud, and most importantly, you get up to $150 in Azure credits every month (as well as additional benefits). </p>
+<blockquote>
+<p><strong>NOTE:</strong> If you are not a Visual Studio subscriber, please skip this exercise.</p>
+</blockquote>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Activate Visual Studio Subscription Benefits
+</h4>
+
+<p>To active the Visual Studio subscription benefits, browse to the following URL: <a href="http://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-details/">http://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-details/</a></p>
+<p>Scroll down to see the full list of benefits you will get for being a MSDN member and read the FAQ section for additional details.</p>
+<p>Click <em>Activate</em> to activate the benefits.</p>
+<p><img src="/images/chapter1/Azure Trial/activate.png" alt="Activate Visual Studio benefits"></p>
+<p>You will need to enter your Microsoft account credentials to verify the subscription and complete the activation steps.</p>
+<div class="exercise-end"></div>
+
+<h3 id="signing-up-for-a-power-bi-account">Signing up for a Power BI Account</h3>
+<p>If you already have a Power BI account, you can use it to complete this workshop. If you do not have a Power BI account, follow the steps below to sign up for your free account:</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create Power BI Account
+</h4>
+
+<p>To sign up for a free Power BI service, navigate to: <a href="https://powerbi.microsoft.com/">https://powerbi.microsoft.com/</a> and click on the <em>Sign up free</em> button in the upper right corner.</p>
+<p><img src="/images/chapter1/Power BI Trial/PowerBITrial 1.png" alt="Sign up free"></p>
+<p>Scroll down to the <em>Power BI Cloud collaboration and sharing</em> section and click the <em>TRY FREE</em> button, which will redirect you to the start of the sign-up process.</p>
+<p><img src="/images/chapter1/Power BI Trial/PowerBITrial 2.png" alt="TRY FREE"></p>
+<p>Enter your work email address and press the <em>Sign up</em> button.</p>
+<p><img src="images/chapter1/Power BI Trial/PowerBITrial 3.png" class="img-medium" /></p>
+<blockquote>
+<p><strong>NOTE:</strong> Power BI Service requires a work email address, which will be different from the account you used to set up a trial Azure subscription. You will be unable to register with a Microsoft account, such as @hotmail.com  or @outlook.com or with other consumer-oriented email accounts.</p>
+</blockquote>
+<p>If you are using your work email address with other Microsoft services (such as Office 365), you will be asked to sign in with your existing account.</p>
+<p><img src="images/chapter1/Power BI Trial/PowerBITrial 4.png" class="img-medium" /></p>
+<p>If you do not have an existing account, you will be asked to create one.</p>
+<p><img src="images/chapter1/Power BI Trial/PowerBITrial 5.png" class="img-medium" /></p>
+<p>After creating an account or signing in, follow the prompts to complete your sign up for the Power BI account.</p>
+<p>At the end of the process, you should be able to reach <a href="https://app.powerbi.com/groups/me/contentlist">your personal Power BI workspace</a>, which will look something like this:</p>
+<p><img src="/images/chapter1/Power BI Trial/PowerBITrial 8.png" alt="Personal Workspace"></p>
+<blockquote>
+<p><strong>NOTE:</strong> A free Power BI account will be sufficient to complete the exercises in this workshop. However, you will be unable to share your content or collaborate with other users. Optionally, you may choose to try Power BI Pro free for 60 days. Power BI Pro has all the features of the free version of Power BI, and additional sharing and collaboration features. To try a 60-day free trial of Power BI Pro, sign into Power BI, and try one of the Power BI Pro features, such as create an app workspace or sharing a dashboard. When you try any of these features, you will be prompted to start your free trial.</p>
+<p><img src="/images/chapter1/Power BI Trial/PowerBITrial 7.png" alt="TRY FREE"></p>
+</blockquote>
+<div class="exercise-end"></div>
+
+                </div>
+                <hr>
+                <div class="chapter">
+                    <h2 id="build-a-machine-learning-model">Build a Machine Learning Model</h2>
+<h3 id="create-a-new-resource-group-for-the-predictive-maintenance-solution">Create a new resource group for the Predictive Maintenance Solution</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create an Azure Resource Group
+</h4>
+
+<p>Azure Resource groups are resources that serve as &quot;containers&quot; for collections of other resources. The benefit of resource groups is that they allow an Azure administrator to roll-up billing and monitoring information for resources within a resource group and manage access to those resources as a set. We will place all resources for the Predictive Maintenance solution into a common resource group.</p>
+<p>Log into your Azure Portal by navigating to <a href="https://portal.azure.com">https://portal.azure.com</a>.</p>
+<p><img src="images/chapter2/Resource Group/ResourceGroup 1.png" class="img-large" /></p>
+<p>Click on the &quot;+&quot; sign in the upper left corner and type in the term &quot;Resource Group&quot; in the Search bar, then select &quot;Resource Group&quot; from the list of matching resource types.</p>
+<p><img src="images/chapter2/Resource Group/ResourceGroup 2.png" class="img-medium" /></p>
+<p>Review the description of the resource you are about to create and press the <em>Create</em> button.</p>
+<blockquote>
+<p><strong>NOTE:</strong> The process of finding a desired type of a new resource to be created is applicable to all types of resources. You will do this frequently throughout this workshop.</p>
+</blockquote>
+<p>Enter the name of resource group, confirm subscription to which the resource group belongs and select a location for the resource group.</p>
+<p><img src="images/chapter2/Resource Group/ResourceGroup 4.png" class="img" /></p>
+<p>Confirm that the resource group was created successfully.
+<img src="images/chapter2/Resource Group/ResourceGroup 5.png" class="img-medium" /></p>
+<div class="exercise-end"></div>
+
+<h3 id="create-a-machine-learning-workspace">Create a Machine Learning Workspace</h3>
+<p>A key part of the predictive maintenance solution that we are about to build is a machine learning model that will estimate the useful life of an electrical motor based on various factors. This machine learning model will be designed in the Azure Machine Learning Studio. To use Azure Machine Learning Studio, you need to have a Machine Learning workspace, which contains the tools you need to create, manage, and publish advanced analytics solutions in the cloud, as well as collaborate with your colleagues on the development of these solutions.</p>
+<p>As part of setting up a Machine Learning Workspace, we will also create a Machine Learning Web Service Plan. After you have developed an experiment in Machine Learning Studio, we will deploy the experiment as a web service hosted on Azure. The costs associated with web services are managed under web service pricing plans that you will select.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Machine Learning Workspace and Web Service Plan
+</h4>
+
+<p>Click on the &quot;+&quot; sign in the upper left corner and type in the term &quot;Machine Learning&quot; in the Search bar, then select &quot;Machine Learning workspace&quot; from the list of matching resource types.</p>
+<p>Review the description of the resource you are about to create and press the <em>Create</em> button.</p>
+<p><img src="images/chapter2/ML Workspace/MLWS 1.png" class="img-large" /></p>
+<p>Specify the properties of the Machine Learning workspace.</p>
+<ol>
+<li>Specify workspace name</li>
+<li>Confirm the subscription for the workspace</li>
+<li>Select the existing resource group</li>
+<li>Select the desired location</li>
+<li>Create a new storage account and provide the name for the account</li>
+<li>Select &quot;Standard&quot; pricing tier</li>
+<li>Create a new &quot;Web service plan&quot; and provide the name for the web service plan</li>
+<li>Click to select a pricing tier for the web service plan</li>
+<li>Click on the desired pricing tier</li>
+<li>Click on the <em>Select</em> button to confirm pricing tier selection</li>
+<li>Click on the <em>Create</em> button to provision the machine learning workspace</li>
+</ol>
+<blockquote>
+<p><strong>NOTE:</strong>  Machine Learning Web Service Plans allow you to customize your costs based on the number of transactions and compute hours used by your active web services per month. A free DEVTEST Web service plan will be sufficient for the purposes of this workshop. However, you may need to upgrade to another tier depending on how much you use this web service.</p>
+</blockquote>
+<div class="exercise-end"></div>
+
+
+<h3 id="create-a-machine-learning-experiment">Create a Machine Learning Experiment</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Machine Learning Experiment
+</h4>
+
+<p>During this exercise, you will start developing a machine learning model using Azure Machine Learning Studio. The purpose of the model is to predict the remaining useful life of an electrical motor based on its attributes and operating conditions.</p>
+<p>After logging into the Azure portal, navigate to the Machine Learning Workspace:</p>
+<p><img src="/images/chapter2/Machine Learning/ML Model 1.png" alt="Navigate to Machine Learning Workspace"></p>
+<p>From the Machine Learning Workspace overview blade, launch the Machine Learning Studio.</p>
+<p><img src="/images/chapter2/Machine Learning/ML Model 3.png" alt="Launch Machine Learning Studio"></p>
+<p>Sign into the Machine Learning Studio.</p>
+<p><img src="/images/chapter2/Machine Learning/ML Model 5.png" alt="Sign into the Machine Learning Studio"></p>
+<p>From the experiments area of the Machine Learning Studio, create a new Experiment.</p>
+<p><img src="/images/chapter2/Machine Learning/ML Model 6.png" alt="Create a new experiment"></p>
+<p>We will start with a blank experiment, by clicking the &quot;Blank Experiment&quot; tile, which will open a new experiment design area.</p>
+<p><img src="/images/chapter2/Machine Learning/ML Model 7.png" alt="Start with a blank experiment"></p>
+<p>The experiment design area consists of an experiment canvas in the center, a navigation bar with a list of available modules on the left and a properties pane on the right.</p>
+<div class="exercise-end"></div>
+
+<h3 id="import-data">Import Data</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Import Data
+</h4>
+
+<p>We will add the first module to our machine learning experiment, which will import the raw data for the model. Expand the <em>Data Inputs and Outputs</em> folder, find the <em>Import Data</em> module and drag it onto the experiment canvas.</p>
+<p><img src="/images/chapter2/Machine Learning/ML Model 10.png" alt="Add the Import Data Module"></p>
+<p>Now, let&#39;s configure the Import Data Module by clicking on the <em>Launch Import Data Wizard</em>, and selecting <em>Web URL via HTTP</em> from the list of available sources.</p>
+<p><img src="/images/chapter2/Machine Learning/ML Model 11.png" alt="Launch Import Data Wizard"></p>
+<p>On the next step of the wizard, provide the Data Source URL:</p>
+<p><a href="https://kizanmltrainingdata.blob.core.windows.net/predictivemaintenance/Machine%20Learning%20-%20Remaining%20Useful%20life.csv">https://kizanmltrainingdata.blob.core.windows.net/predictivemaintenance/Machine%20Learning%20-%20Remaining%20Useful%20life.csv</a></p>
+<p>Select CSV data format and indicate that the CSV file has a header row:</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 12.png" class="img-medium" /></p>
+<p>Complete the Import Data Wizard configuration.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 14.png" class="img-medium" /></p>
+<p>After configuring the data import wizard, let&#39;s run the experiment to make sure that the data can be imported.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 15.png" class="img-medium" /></p>
+<p>You should see a green check mark indicating that the module has run successfully. Now, let&#39;s examine and visualize the content of the dataset that we have just imported by right-clicking on the Import Data module, clicking on &quot;Results dataset&quot; and clicking on &quot;Visualize.&quot;</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 21.png" class="img-medium" /></p>
+<p>You will observe column and row counts, a sample of data, as well as histograms depicting the distribution of values in each column.</p>
+<blockquote>
+<p><strong>NOTE:</strong> It is a good practice to review each column carefully to identify any anomalies or data quality issues that need to be addressed before training your machine learning model. You can click on the heading of each column to see basic descriptive statistics for column values, as well as a a more detailed histogram of value distribution. </p>
+</blockquote>
+<p><img src="images/chapter2/Machine Learning/ML Model 26.png" class="img" /></p>
+<p>Now that we know that the data has been imported successfully, let&#39;s configure the Import Data Module to <em>Use cached results</em>, since we do not expect our source data to change.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 18.png" class="img" /></p>
+<h4 id="rename-and-save-the-draft-of-the-experiment">Rename and Save the Draft of the Experiment</h4>
+<p>By default, our experiment is titled <em>Experiment created on {date}</em>. Let&#39;s give a more descriptive name to our experiment by selecting the current title in the title bar and replacing it with a more suitable title, such as <em>Predictive Maintenance</em>. </p>
+<p><img src="images/chapter2/Machine Learning/ML Model 19.png" class="img-medium" /></p>
+<p>We are now ready to save the draft of the experiment.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 20.png" class="img-small" /></p>
+<div class="exercise-end"></div>
+
+
+<h3 id="prepare-data">Prepare Data</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Edit Metadata of the Source Dataset
+</h4>
+
+<p>While reviewing imported dataset, we noticed two columns containing categorical values (<em>Motor Type</em> and <em>Device Type</em>). Let&#39;s indicate that these columns contain categorical data to ensure that they are handled properly by various machine learning algorithms. To help us with this task, we will use the <em>Edit Metadata</em> module. Let&#39;s find this module by typing the phrase <em>Edit metadata</em> in the search bar. Then, let&#39;s drag the Edit Metadata module to the design surface of the experiment.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 23.png" class="img-medium" /></p>
+<p>Connect the output of the <em>Import Data</em> module to the input of the <em>Edit Metadata</em> module. </p>
+<p><img src="images/chapter2/Machine Learning/ML Model 24.png" class="img-small" /></p>
+<p>Launch column selector.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 25.png" class="img-medium" /></p>
+<p>Select <em>Motor Type</em> and <em>Device Type</em> columns:</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 27.png" class="img-medium" /></p>
+<p>Make selected columns categorical.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 27.5.png" class="img-small" /></p>
+<div class="exercise-end"></div>
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Clean Missing Data
+</h4>
+
+<p>During the data preparation phase of the data science process, we may need to handle the possibility of encountering missing data in one or more columns of certain records. For this experiment, let&#39;s replace missing values with the average (mean) of other values in the corresponding column.</p>
+<p>Find the <em>Clean Missing Data</em> module by typing the word <em>Clean</em> in the search bar. Then, drag the <em>Clean Missing Data</em> module onto the design surface.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 28.png" class="img-medium" /></p>
+<p>Connect the output of the <em>Edit Metadata</em> module to the input of the <em>Clean Missing Data</em> module. </p>
+<p><img src="images/chapter2/Machine Learning/ML Model 29.png" class="img-small" /></p>
+<p>Launch column selector and select all columns, except for <em>Motor Type</em>, <em>Device Type</em> and <em>Remaining Useful Life</em>.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 30.png" class="img" /></p>
+<p>Configure the cleaning mode to Replace missing values with the mean.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 31.5.png" class="img-small" /></p>
+<div class="exercise-end"></div>
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Split Source Data into a Training Set and Validation Set
+</h4>
+
+<p>When we develop machine learning models, it may be possible to train a model that can make accurate predictions for those records that have been used to train the model. Yet, our objective is to train a model that can make accurate predictions for new data (data that the model has not previously seen). One of the simplest ways to simulate the &quot;new&quot; data is by splitting our original dataset into partitions:</p>
+<ol>
+<li>The training set that will be used to train the model</li>
+<li>The validation set that will be used to estimate the prediction error of the model</li>
+</ol>
+<blockquote>
+<p><strong>NOTE:</strong> In more advanced data science processes, it is common to split the data into three sets: the training set that is used to train several models, the validation set that is used to estimate prediction error in order to select the best model, and the test set that is used to estimate the prediction error of the final model that gets selected. For simplicity, we will only use the training and validation sets in this experiment.</p>
+</blockquote>
+<p>Find the <em>Split Data</em> module by typing the word <em>Split</em> in the search bar. Then, drag the module onto the design surface.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 32.png" class="img-medium" /></p>
+<p>Connect the output of the <em>Clean Missing Data</em> module to the input of the <em>Split Data</em> module. </p>
+<p><img src="images/chapter2/Machine Learning/ML Model 33.png" class="img-small" /></p>
+<p>Configure the <em>Split Data</em> module by setting the fraction of rows in the first output dataset to 0.7</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 34.png" class="img-small" /></p>
+<div class="exercise-end"></div>
+
+<h3 id="train-the-machine-learning-model">Train the Machine Learning Model</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Train the Machine Learning Model
+</h4>
+
+<p>Find the <em>Train Model</em> module by typing the phrase <em>Train Model</em> in the search bar. Then, drag the module onto the design surface.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 35.png" class="img-medium" /></p>
+<p>Connect the first output of the <em>Split Data</em> module to the second input of the <em>Train Model</em> module. </p>
+<p><img src="images/chapter2/Machine Learning/ML Model 36.png" class="img-small" /></p>
+<p>We will use the <em>Boosted Decision Tree Regression</em> to predict the Remaining Useful Life of electrical motors. Let&#39;s initialize the machine learning model by selecting the appropriate algorithm and specifying the algorithm parameters.</p>
+<blockquote>
+<p><strong>NOTE:</strong> The process of selecting a suitable algorithm and the selection of optimal algorithm parameters is a crucial part of the data science process. While some algorithms may be suitable for certain types of machine learning problems, it is often necessary to try and compare multiple algorithms and multiple combinations of algorithm parameters. For simplicity, we will only use a single algorithm with a basic set of parameters in this exercise.</p>
+</blockquote>
+<p>Find the <em>Boosted Decision Tree Regression</em> module by typing the word <em>Boosted</em> in the search bar. Drag the module onto the design surface. Then, drag the output of the <em>Boosted Decision Tree Regression</em> module to the first input of the <em>Train Model</em> module. </p>
+<p><img src="images/chapter2/Machine Learning/ML Model 38.png" class="img" /></p>
+<p>Configure the <em>Train Model</em> module by launching the column selector and selecting the <em>Remaining Useful Life</em> column (as the variable to be predicted).</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 40.png" class="img-medium" /></p>
+<p>Configure the parameters of the <em>Boosted Decision Tree Regression</em> module as illustrated below:</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 47.png" class="img-small" /></p>
+<div class="exercise-end"></div>
+
+<h3 id="score-and-evaluate-the-machine-learning-model">Score and Evaluate the Machine Learning Model</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Score the Machine Learning Model
+</h4>
+
+<p>During the scoring process, we will use the newly trained Boosted Decision Tree Regression model to predict the remaining useful life of records in the validation dataset.</p>
+<p>Find the <em>Score Model</em> module by typing the phrase <em>Score Model</em> in the search bar. Drag the module onto the design surface. </p>
+<p><img src="images/chapter2/Machine Learning/ML Model 43.png" class="img" /></p>
+<p>Drag the output of the <em>Train Model</em> module to the first input of the <em>Score Model</em> module. Then, drag the second output of the <em>Split Data</em> module to the second input of the <em>Score Model</em> module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 43.png" class="img-medium" /></p>
+<p>Configure the <em>Score Model</em> module by ensuring that the <em>Append score columns to output</em> option is checked.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 42.png" class="img-medium" /></p>
+<div class="exercise-end"></div>
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Evaluate the Machine Learning Model
+</h4>
+
+<p>To evaluate the machine learning model, we will compare the predictions of remaining useful life made by the model with actual remaining useful life of motors in our validation dataset.</p>
+<p>Find the <em>Evaluate Model</em> module by typing the word <em>Evaluate</em> in the search bar. Drag the module onto the design surface. Then, connect the output of the <em>Score Model</em> module to the first input of the <em>Evaluate Model</em> module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 45.png" class="img" /></p>
+<h4 id="run-the-machine-learning-experiment">Run the Machine Learning Experiment</h4>
+<p>Now that the machine learning model is built, we can run the entire experiment.</p>
+<p>Press the <em>Run</em> button at the bottom of the screen and click the <em>Run</em> button in the pop-up menu to run the entire experiment.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 46.png" class="img-medium" /></p>
+<div class="exercise-end"></div>
+
+<h3 id="review-and-save-the-machine-learning-model">Review and Save the Machine Learning Model</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Review the Machine Learning Model
+</h4>
+
+<p>After running the experiment, we can review the accuracy of the machine learning model. Right-click on the <em>Evaluate Model</em> module. Click on <em>Evaluation results</em> and click on <em>Visualize</em>.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 50.png" class="img-medium" /></p>
+<p>You will observe a summary describing the error rate of the machine learning model you had built.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 51.png" class="img-medium" /></p>
+<p>You may also visualize the decision trees that have been constructed while training the Machine Learning model. Right-click on the <em>Train Model</em> module. Click on <em>Trained Model</em> and click on <em>Visualize</em>.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 52.png" class="img-medium" /></p>
+<p>You will see a screen with a list of all decision trees, and the capabilities for interactive exploration of the splits in the decision tree.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 53.png" class="img-medium" /></p>
+<h4 id="save-the-machine-learning-experiment">Save the Machine Learning Experiment</h4>
+<p>Confirm that your completed experiment looks similar to the following diagram.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 55.png" class="img-medium" /></p>
+<p>Save the experiment.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 48.png" class="img-medium" /></p>
+<div class="exercise-end"></div>
+
+<h3 id="create-a-machine-learning-web-service">Create a Machine Learning Web Service</h3>
+<p>After creating and training the machine learning model, we will operationalize the model by creating a Web Service that will enable us to make predictions of remaining useful life of electrical motors. Later on, we will use this web service in conjunction with a Stream Analytics job to predict and track the health of electrical motors in near-real-time.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Machine Learning Web Service
+</h4>
+
+<p>If necessary, open the machine learning experiment that you had created in the previous section. Then, click on the <em>Set Up Web Service</em> button and click on <em>Predictive Web Service [Recommended]</em>.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 49.png" class="img-medium" /></p>
+<p>Machine Learning Studio will automatically generate a Web Service experiment based on the model that you had previously created, which will look as follows:</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 54.png" class="img" /></p>
+<p>We will need to make several modifications to this draft of the Web Service experiment to customize it for our needs.</p>
+<h4 id="adjust-web-service-input-parameters">Adjust Web Service Input Parameters</h4>
+<p>First, we will need to make sure that remaining useful life is not expected as a web service parameter. Rearrange the layout of modules in the predictive experiment and remove the connection between the <em>Import Data</em> module and the <em>Edit Metadata</em> module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 70.png" class="img-medium" /></p>
+<p>Find the <em>Select Columns in Dataset</em> module by typing the phrase <em>Select Columns</em> in the search bar. Drag the <em>Select Columns in Dataset</em> module onto the design surface and place it between the <em>Import Data</em> and <em>Edit Metadata</em> modules. Connect the output of the <em>Import Data</em> module to the input of the <em>Select Columns in Dataset</em> module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 71.png" class="img-medium" /></p>
+<p>Launch column selector and exclude the <em>Remaining Useful Life</em> column from the dataset.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 72.png" class="img" /></p>
+<p>Connect the output of the <em>Select Columns in Dataset</em> module to the input of the <em>Edit Metadata</em> module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 73.png" class="img-medium" /></p>
+<h4 id="adjust-web-service-outputs">Adjust Web Service Outputs</h4>
+<p>Let us adjust the outputs of the web service such that it returns only the predictions of the remaining useful life and no other data.</p>
+<p>First, remove the connection between the <em>Score Model</em> module and the <em>Web service output</em> module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 56.png" class="img-small" /></p>
+<p>Find the <em>Select Columns in Dataset</em> module by typing the phrase <em>Select Columns</em> in the search bar. Drag the <em>Select Columns in Dataset</em> module onto the design surface and place it between the <em>Score Model</em> module and the <em>Web service output</em> modules. Connect the output of the <em>Score Model</em> module to the input of the <em>Select Columns in Dataset</em> module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 57.png" class="img-medium" /></p>
+<p>Launch column selector and include the <em>Scored Labels</em> column from the dataset (while excluding all others).</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 58.png" class="img" /></p>
+<p>Connect the output of the <em>Select Columns in Dataset</em> module to the input of the *Web service output&quot; module.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 59.png" class="img-small" /></p>
+<h4 id="review-run-and-save-the-experiment">Review, run and save the experiment</h4>
+<p>Your predictive experiment should now look something like the following diagram:</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 75.png" class="img-medium" /></p>
+<p>Let&#39;s run the entire predictive experiment:</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 60.png" class="img-medium" /></p>
+<p>Save the predictive experiment.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 48.png" class="img-medium" /></p>
+<div class="exercise-end"></div>
+
+<h3 id="deploy-predictive-web-service">Deploy Predictive Web Service</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Deploy the Predictive Web Service
+</h4>
+
+<p>Once the predictive experiment has been run, deploy the predictive web service. Press the <em>Deploy Web Service</em> button and click <em>Deploy Web Service [New] Preview</em>.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 62.png" class="img-medium" /></p>
+<p>Specify the name, storage account and price plan for the web service. Then, click <em>Deploy</em>.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 63.png" class="img-medium" /></p>
+<p>You will be redirected to the web service management portal. Click on the <em>Use Web Service</em> link.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 64.png" class="img-medium" /></p>
+<p>In the list of basic consumption information, note the <em>Primary Key</em> and <em>Request-Response</em> values - you would use these values to access your Machine Learning Web Service programmatically. You do not need to record these values for the purposes of this workshop.</p>
+<p><img src="images/chapter2/Machine Learning/ML Model 65.png" class="img" /></p>
+<div class="exercise-end"></div>
+                </div>
+                <hr>
+                <div class="chapter">
+                    <h2 id="provision-azure-iot-hub-and-azure-data-lake-store">Provision Azure IoT Hub and Azure Data Lake Store</h2>
+<p>The architecture of most IoT solutions includes several common components, such as a hub that receives messages from connected devices and a big data store that could be used to permanently store the data collected from the devices. We will create both of these resources during this section of the workshop.</p>
+<h3 id="create-an-azure-iot-hub">Create an Azure IoT Hub</h3>
+<p>Let us create an Azure IoT Hub to serve as a central ingestion point for telemetry data sent by our connected devices. Azure IoT Hub supports billions of clients that can securely send data to the hub to report on their state and operating conditions. Azure IoT Hub supports bi-directional communications by allowing cloud-to-device messages to be sent to the devices.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create an Azure IoT Hub
+</h4>
+
+<p>Log into your Azure Portal by navigating to <a href="https://portal.azure.com">https://portal.azure.com</a>.</p>
+<p>Click on the &quot;+&quot; sign in the upper left corner and type in the term &quot;IoT Hub&quot; in the Search bar, then select &quot;IoT Hub&quot; from the list of matching resource types.</p>
+<p><img src="images/chapter3/IoT Hub/IoT Hub 1.png" class="img-medium" /></p>
+<p>Review the name of the resource and click on the <em>Create</em> button.</p>
+<p><img src="images/chapter3/IoT Hub/IoT Hub 2.png" class="img-medium" /></p>
+<p>Specify the parameters of the IoT Hub:</p>
+<blockquote>
+<p><strong>NOTE:</strong> The name of the IoT Hub must be globally unique across all Azure subscriptions. If the name you tried to use is not available, please specify a different name.</p>
+</blockquote>
+<ol>
+<li>Specify the name of the hub</li>
+<li>Select pricing tier: F1-Free</li>
+<li>Select Azure Subscription in which the hub will be created</li>
+<li>Indicate that you will be using an existing resource group</li>
+<li>Select resource group name</li>
+<li>Specify the location for the IoT Hub</li>
+<li>Press the <em>Create</em> button</li>
+</ol>
+<p><img src="images/chapter3/IoT Hub/IoT Hub 3.png" class="img-medium" /></p>
+<p>Once the IoT Hub has been created, take a few moments to review the IoT Hub blade in your Azure Portal and familiarize yourself with the features and parameters of the IoT Hub.</p>
+<blockquote>
+<p><strong>NOTE:</strong> Provisioning of an IoT Hub is a key part of building an real-time analytics solution for connected devices. During this workshop, we will be using an IoT Hub provisioned by KiZAN. Therefore, the IoT Hub that you had just provisioned will be present in your subscription, but will not be actively used throughout the remainder of the workshop.</p>
+</blockquote>
+<div class="exercise-end"></div>
+
+<h3 id="create-an-azure-data-lake-store">Create an Azure Data Lake Store</h3>
+<p>Let us create a data lake store to store to store the telemetry data from our IoT devices. Azure Data Lake Store is a secure, massively-scalable big data storage service for unstructured, semi-structured, and structured data. Azure Data Lake Store can store trillions of files with individual files being over a petabyte in size, which makes it ideal for a variety of enterprise and scientific applications. The Data Lake Store can be used to capture data of any size, type and velocity to support operational and exploratory analytics.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create an Azure Data Lake Store
+</h4>
+
+<p>Log into your Azure Portal by navigating to <a href="https://portal.azure.com">https://portal.azure.com</a>.</p>
+<p>Click on the &quot;+&quot; sign in the upper left corner and type in the term &quot;Data Lake&quot; in the Search bar, then select &quot;Data Lake Store&quot; from the list of matching resource types.</p>
+<p><img src="images/chapter3/Data Lake Store/DataLakeStore 2.png" class="img-medium" /></p>
+<p>Review the name of the resource and click on the <em>Create</em> button.</p>
+<p><img src="images/chapter3/Data Lake Store/DataLakeStore 3.png" class="img-medium" /></p>
+<p>Specify the parameters of the Data Lake Store:</p>
+<blockquote>
+<p><strong>NOTE:</strong> The name of the data lake store must be globally unique across all Azure subscriptions. If the name you intended to use is not available, please specify a different name.</p>
+</blockquote>
+<ol>
+<li>Specify the name of the Data Lake Store</li>
+<li>Subscription</li>
+<li>Indicate that you will be using an existing resource group</li>
+<li>Select resource group name</li>
+<li>Specify location: <em>East US 2</em></li>
+<li>Select pricing tier</li>
+<li>Enable encryption to secure your data at rest</li>
+<li>Check the box to pin the resource to your dashboard in the Azure Portal</li>
+<li>Press the <em>Create</em> button</li>
+</ol>
+<p><img src="images/chapter3/Data Lake Store/DataLakeStore 4.png" class="img-medium" /></p>
+<blockquote>
+<p><strong>NOTE:</strong> It is typically a good practice to provision related data-intensive resources in the same location - this will help to minimize latency and maximize throughput while one service accesses resources stored in another service. This approach also helps to minimize egress charges (charges for data leaving an Azure data center or data being moved from one data center to another data center). While not every resource type is available in every Azure location, we will plan to provision most of the resources in the East US 2 Azure location during this workshop.</p>
+</blockquote>
+<div class="exercise-end"></div>
+
+
+                </div>
+                <hr>
+                <div class="chapter">
+                    <h2 id="create-an-azure-stream-analytics-job">Create an Azure Stream Analytics Job</h2>
+<p>Once telemetry data from our connected devices has been ingested, we can use use Azure Stream Analytics to perform real-time processing and analysis of massive volumes of data in motion. Azure Stream Analytics supports connectivity to event streams (such as IoT Hubs and Event Hubs), as well as to reference data that changes infrequently. Azure Stream Analytics transformations are defined using a simple SQL-like language that has been extended to support the temporal (time-based) nature of the data. Azure Stream Analytics is capable of processing complex events in a variety of formats.</p>
+<h3 id="create-and-configure-the-job">Create and Configure the Job</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create an Azure Stream Analytics Job
+</h4>
+
+<p>Log into your Azure Portal by navigating to <a href="https://portal.azure.com">https://portal.azure.com</a>.</p>
+<p>Click on the &quot;+&quot; sign in the upper left corner and type in the term &quot;IoT Hub&quot; in the Search bar, then select &quot;IoT Hub&quot; from the list of matching resource types.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 1.png" class="img-medium" /></p>
+<p>Review the name of the resource and click on the <em>Create</em> button.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 2.png" class="img-medium" /></p>
+<p>Specify the parameters of the Stream Analytics Job:</p>
+<ol>
+<li>Specify the name of the job</li>
+<li>Select Azure Subscription in which the job will be created</li>
+<li>Indicate that you will be using an existing resource group</li>
+<li>Select resource group name</li>
+<li>Specify the location for the IoT Hub</li>
+<li>Check the box to pin the resource to your dashboard in the Azure Portal</li>
+<li>Press the <em>Create</em> button</li>
+</ol>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 3.png" class="img-medium" /></p>
+<p>Once the Stream Analytics job has been created, take a few moments to review the Stream Analytics blade in your Azure Portal and familiarize yourself with the features and parameters of this resource.</p>
+<div class="exercise-end"></div>
+
+<h3 id="configure-inputs-for-the-stream-analytics-job">Configure Inputs for the Stream Analytics Job</h3>
+<p>A stream analytics job must have one or more input and one or more output. Our job will have two inputs and two outputs. Let&#39;s start by creating our first input.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Configure Inputs
+</h4>
+
+<blockquote>
+<p><strong>NOTE:</strong> Names and configuration settings described in this exercise must match those listed in the instructions.</p>
+</blockquote>
+<h4 id="create-the-data-stream-input">Create the Data Stream Input</h4>
+<p>Navigate to the <em>Overview</em> blade of your Stream Analytics job and click on the <em>Inputs</em> tile.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 4.png" class="img" /></p>
+<p>Click on the <em>Add</em> button to add your first input.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 5.png" class="img-medium" /></p>
+<p>Define the details for the input:</p>
+<ol>
+<li>Specify the name or the alias for the input: <em>KiZAN-IoT-Hub</em></li>
+<li>Set Source Type to <em>Data stream</em></li>
+<li>Set Source to <em>IoT Hub</em></li>
+<li>Set import option to <em>Provide IoT hub settings manually</em></li>
+<li>Set IoT hub to <em>IOTH-KiZANCortanaWS01</em></li>
+<li>Set endpoint to <em>Messaging</em></li>
+<li>Set shared access policy name to <em>device</em></li>
+<li>Shared access policy key: <strong>Your shared access policy key will be provided during the workshop</strong></li>
+<li>Consumer group: <strong>Your consumer group name will be provided to you during the workshop</strong></li>
+<li>Set event serialization format to <em>JSON</em></li>
+<li>Set Encoding to <em>UTF-8</em></li>
+<li>Press the <em>Create</em> button</li>
+</ol>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 6.png" class="img-medium" /></p>
+<h4 id="create-the-reference-data-input">Create the Reference Data Input</h4>
+<p>In addition to the streaming events, a Stream Analytics Job may utilize reference data, such as device metadata or other types of data that do not change frequently. We will join device metadata with reference data in order to enrich the outputs of the Stream Analytics Job.</p>
+<p>Navigate to the <em>Overview</em> blade of your Stream Analytics job and click on the <em>Inputs</em> tile.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 7.png" class="img" /></p>
+<p>Click on the <em>Add</em> button to add your second input.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 5.png" class="img-medium" /></p>
+<p>Define the details for the input:</p>
+<ol>
+<li>Specify the name or the alias for the input: <em>KiZAN-IoT-Device-Reference-Data</em></li>
+<li>Set Source Type to <em>Reference Data</em></li>
+<li>Set import option to <em>Provide blob storage settings manually</em></li>
+<li>Set storage account to <em>kizandevices</em></li>
+<li>Storage account key: <strong>Your storage account key will be provided during the workshop</strong></li>
+<li>Set container to <em>referencedata</em></li>
+<li>Set path pattern to <em>DeviceReferenceData.csv</em></li>
+<li>Set event serialization format to <em>CSV</em></li>
+<li>Set delimiter to <em>comma (,)</em></li>
+<li>Set Encoding to <em>UTF-8</em></li>
+<li>Press the <em>Create</em> button</li>
+</ol>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 8.png" class="img-medium" /></p>
+<p>Your inputs should now be properly configured.</p>
+<div class="exercise-end"></div>
+
+<h3 id="define-outputs-for-your-stream-analytics-job">Define Outputs for your Stream Analytics Job</h3>
+<p>Your Stream Analytics Job will have two outputs: Power BI for real-time data visualization and Azure Data Lake Store for persistent storage of your telemetry data.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Define Outputs
+</h4>
+
+<blockquote>
+<p><strong>NOTE:</strong> Names and configuration settings described in this exercise must match those listed in the instructions.</p>
+</blockquote>
+<h4 id="create-the-azure-data-lake-output">Create the Azure Data Lake Output</h4>
+<p>Click on <em>Outputs</em> in the navigation pane for the Stream Analytics Job, and click on the <em>Add</em> button.
+<img src="images/chapter4/Stream Analytics/StreamAnalytics 11.png" class="img-medium" /></p>
+<p>Specify the details for the new output:</p>
+<ol>
+<li>Set Output alias to <em>DataLakeStore</em></li>
+<li>Set Sink to <em>Data Lake Store</em></li>
+<li>Click on <em>Authorize</em> to authorize your output to connect to a Data Lake Store.</li>
+</ol>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 12.png" class="img-small" /></p>
+<p>Complete configuring the output:</p>
+<ol>
+<li>Import option: <em>Select Data Lake Store from your subscription</em></li>
+<li>Subscription: Specify the name of your subscription.</li>
+<li>Account name: Specify the name of your Azure Data Lake Store (it will be unique to your subscription)</li>
+<li>Path prefix pattern: <em>telemetry/{date}</em></li>
+<li>Date format: <em>YYYY/MM/DD</em> (this format will ensure that telemetry data for each day will be stored in a separate folder)</li>
+<li>Event serialization format: <em>JSON</em></li>
+<li>Encoding: <em>UTF-8</em></li>
+<li>Format: <em>Line separated</em></li>
+<li>Click the <em>Create</em> button</li>
+</ol>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 13.png" class="img-small" /></p>
+<h4 id="create-the-power-bi-output">Create the Power BI Output</h4>
+<p>From the Outputs section of the Stream Analytics Job blade, click the <em>Add</em> button.
+<img src="images/chapter4/Stream Analytics/StreamAnalytics 14.png" class="img-medium" /></p>
+<p>Specify the details for the new output:</p>
+<ol>
+<li>Set Output alias to <em>PowerBI</em></li>
+<li>Set Sink to <em>Power BI</em></li>
+<li>Click on <em>Authorize</em> to authorize your output to connect to your Power BI account.
+<img src="images/chapter4/Stream Analytics/StreamAnalytics 15.png" class="img-small" /></li>
+</ol>
+<p>A pop-up window will open allowing you to log into your Power BI Account.
+<img src="images/chapter4/Stream Analytics/StreamAnalytics 16.png" class="img-medium" /></p>
+<p>Finish setting up the Power BI output:</p>
+<ol>
+<li>Set Group Workspace to <em>My workspace</em></li>
+<li>Set Dataset Name to <em>Device Telemetry</em></li>
+<li>Set Table Name to <em>Device Telemetry</em></li>
+<li>Click the <em>Create</em> button</li>
+</ol>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 17.png" class="img-small" /></p>
+<p>Your outputs should now be properly configured.</p>
+<div class="exercise-end"></div>
+
+<h3 id="define-machine-learning-function-for-your-stream-analytics-job">Define Machine Learning Function for your Stream Analytics Job</h3>
+<p>Your Stream Analytics Function will ingest streaming telemetry data from your connected electrical motors, combine telemetry data with device metadata (such as device types, maintenance history and operating characteristics), and predict the remaining useful life of the device. The prediction of the remaining useful life will be made by calling the Machine Learning Web Service that we have created in an earlier exercise.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Define Machine Learning Function
+</h4>
+
+<p>To get started, click on <em>Functions</em> in the navigation pane of the Stream Analytics Job blade.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 9.png" class="img-medium" /></p>
+<p>Specify the details for the new function:</p>
+<ol>
+<li>Set Function Alias to <em>RemainingUsefulLife</em></li>
+<li>Set Function Type to <em>Azure ML</em></li>
+<li>Set Import option to <em>Select from the same subscription</em></li>
+<li>Set URL to the name of the Machine Learning web service that you had created in your subscription</li>
+<li>Click the <em>Create</em> button.</li>
+</ol>
+<div class="exercise-end"></div>
+
+<h3 id="write-a-query-to-transform-and-analyze-streaming-data">Write a Query to Transform and Analyze Streaming Data</h3>
+<p>Stream Analytics Jobs use a SQL-like query language to define transformations for the streaming data. We will write a query that will perform the following tasks:</p>
+<ol>
+<li>Summarize telemetry data for each 1-minute period</li>
+<li>Summarize telemetry data for each 15-minute period</li>
+<li>Summarize telemetry data for the past 24 hours</li>
+<li>Join summarized telemetry data with a reference dataset containing device metadata and derive a variety of metrics, such as <ul>
+<li>Run Time Since Maintenance</li>
+<li>Run Time Since Overhaul</li>
+<li>Run Time Since Production</li>
+<li>Age Since Overhaul</li>
+<li>Age Since Production</li>
+<li>Average (mean) temperature over the latest 1-minute period</li>
+<li>Standard deviation of temperature over the latest 1-minute period</li>
+<li>Range of temperature over the latest 1-minute period                </li>
+<li>Maximum temperature over the latest 1-minute period                </li>
+<li>Average (mean) temperature over the latest 15-minute period</li>
+<li>Standard deviation of temperature over the latest 15-minute period</li>
+<li>Range of temperature over the latest 15-minute period                </li>
+<li>Maximum temperature over the latest 15-minute period                </li>
+<li>Number of observations exceeding the maximum operating temperature over the past 24 hours</li>
+</ul>
+</li>
+<li>Call the Machine Learning Web Service to get a prediction of remaining useful life</li>
+<li>Send data to Power BI for real-time visualization</li>
+<li>Send data to Data Lake Store for permanent storage.</li>
+</ol>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Stream Analytics Query
+</h4>
+
+<p>Click on <em>Query</em> in the navigation pane for the Stream Analytics Job. You will be directed to a query editor window where you will be able to specify a stream analytics query that will transform the streaming data:</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 19.png" class="img-large" /></p>
+<p>If you are familiar with the Structured Query Language (SQL), you will be right at home with the Stream Analytics Query language. You will discover some constructs that are unique to this language. We encourage you to consult the <a href="https://msdn.microsoft.com/en-us/library/azure/dn834998.aspx">Stream Analytics Query Language Reference</a> for additional details.</p>
+<p>Copy the Stream Analytics Query shown below to your clipboard -- be sure to use the handy <em>Copy</em> button in the upper right corner of the code block. Then, paste the query into the query editor window, and press the <em>Save</em> button. </p>
+<pre><code class="lang-sql">--Summarize temperature data for each 1-minute period
+WITH [TemperatureByDevice1Minute]  AS (
+SELECT T.deviceId AS [Device Id],
+    System.Timestamp AS [Event Time],
+    AVG(CAST(T.tempF as float)) AS [TempF Mean - 1 Minute],
+    STDEV(CAST(T.tempF as float)) AS [TempF StDev - 1 Minute],
+    MAX(CAST(T.tempF as float)) - MIN(CAST(T.tempF as float)) AS [TempF Range - 1 Minute],
+    MAX(CAST(T.tempF as float)) AS [TempF Max - 1 Minute]
+FROM
+    [KiZAN-IoT-Hub] T TimeStamp By [EventEnqueuedUtcTime]
+WHERE T.tempF BETWEEN 50 AND 250
+GROUP BY HoppingWindow(second, 60, 30),
+    T.deviceId    
+)
+
+--Summarize temperature data for each 15-minute period
+, [TemperatureByDevice15Minutes]  AS (
+SELECT T.deviceId AS [Device Id],
+    System.Timestamp AS [Event Time],
+    AVG(CAST(T.tempF as float)) AS [TempF Mean - 15 Minutes],
+    STDEV(CAST(T.tempF as float)) AS [TempF StDev - 15 Minutes],
+    MAX(CAST(T.tempF as float)) - MIN(CAST(T.tempF as float)) AS [TempF Range - 15 Minutes],
+    MAX(CAST(T.tempF as float)) AS [TempF Max - 15 Minutes]
+FROM
+    [KiZAN-IoT-Hub] T TimeStamp By [EventEnqueuedUtcTime]
+WHERE T.tempF BETWEEN 50 AND 250
+GROUP BY HoppingWindow(second, 900, 30),
+    T.deviceId
+)
+
+--Summarize temperatures by device over a 24-hour period
+, [TemperaturesByDevice24Hours] AS (
+SELECT
+    System.Timestamp AS [Time Stamp],
+    T.[deviceId] AS [Device ID],
+    CEILING(CAST(T.[tempF] as float)) AS [Temperature],
+    MAX(CAST(T.[runTime] AS bigint)) AS [Run Time],
+    COUNT(*) AS [Record Count]
+FROM
+    [KiZAN-IoT-Hub] T TimeStamp By [EventEnqueuedUtcTime]
+WHERE T.tempF BETWEEN 50 AND 250
+GROUP BY HoppingWindow(second, 86400, 30),
+    T.[deviceId],
+    CEILING(CAST(T.[tempF] as float))
+)
+
+--Summarize excessive temperature events over a 24-hour period
+, [TemperatureAlertsByDevice24Hours] AS (
+SELECT
+    system.timestamp AS [Time Stamp],
+    T.[Device ID],
+    RD.[Motor Type],
+    RD.[Device Type],
+    MAX(T.[Run Time] - CAST(RD.[Maintenance Run Time] as bigint)) AS [Run Time Since Maintenance],
+    MAX(T.[Run Time] - CAST(RD.[Overhaul Run Time] as bigint)) AS [Run Time Since Overhaul],
+    MAX(T.[Run Time]) AS [Run Time Since Production],
+    DATEDIFF(day, CAST(RD.[Overhaul Date] AS datetime), System.Timestamp) AS [Age Since Overhaul],
+    DATEDIFF(day, CAST(RD.[Production Date] AS datetime), System.Timestamp) AS [Age Since Production],
+    SUM(
+        CASE WHEN T.Temperature &gt; (CAST(RD.[Max Operating Temperature] as float))
+        THEN T.[Record Count]
+        ELSE 0
+        END) AS [Observations Above Max Temp - 24 Hours]
+FROM
+    [TemperaturesByDevice24Hours] T
+    INNER JOIN [KiZAN-IoT-Device-Reference-Data] RD
+        ON T.[Device Id] = RD.[Device Id]
+GROUP BY  system.timestamp,
+    T.[Device ID],
+    RD.[Motor Type],
+    RD.[Device Type],
+    RD.[Overhaul Date],
+    RD.[Production Date]
+)
+
+, DataWithPredictions AS (
+SELECT
+    System.Timestamp AS [Time Stamp],
+    T1M.[Device ID],
+    T24H.[Motor Type],
+    T24H.[Device Type],
+    T24H.[Run Time Since Maintenance],
+    T24H.[Run Time Since Overhaul],
+    T24H.[Run Time Since Production],
+    T24H.[Age Since Overhaul],
+    T24H.[Age Since Production],
+    --Summaries for each 1-minute period
+    T1M.[TempF Mean - 1 Minute],
+    T1M.[TempF StDev - 1 Minute],
+    T1M.[TempF Range - 1 Minute],
+    T1M.[TempF Max - 1 Minute],
+    --Summaries for each 15 minute interval
+    T15M.[TempF Mean - 15 Minutes],
+    T15M.[TempF StDev - 15 Minutes],
+    T15M.[TempF Range - 15 Minutes],
+    T15M.[TempF Max - 15 Minutes],
+    T24H.[Observations Above Max Temp - 24 Hours],
+    --Call Azure Machine Learning web service to get a Remaining Useful Life prediction
+    RemainingUsefulLife(
+        T24H.[Motor Type],
+        T24H.[Device Type],
+        T24H.[Run Time Since Maintenance],
+        T24H.[Run Time Since Overhaul],
+        T24H.[Run Time Since Production],
+        T24H.[Age Since Overhaul],
+        T24H.[Age Since Production],
+        T1M.[TempF Mean - 1 Minute],
+        T1M.[TempF StDev - 1 Minute],
+        T1M.[TempF Range - 1 Minute],
+        T1M.[TempF Max - 1 Minute],
+        T15M.[TempF Mean - 15 Minutes],
+        T15M.[TempF StDev - 15 Minutes],
+        T15M.[TempF Range - 15 Minutes],
+        T15M.[TempF Max - 15 Minutes],
+        T24H.[Observations Above Max Temp - 24 Hours]
+        ) AS [Remaining Useful Life]
+FROM
+    [TemperatureByDevice1Minute] T1M
+    INNER JOIN [TemperatureByDevice15Minutes] T15M
+        ON T1M.[Device Id] = T15M.[Device Id]
+        AND DATEDIFF(second,T1M,T15M) = 0
+    INNER JOIN [TemperatureAlertsByDevice24Hours] T24H
+        ON T1M.[Device Id] = T24H.[Device Id]
+        AND DATEDIFF(second,T1M,T24H) = 0
+)
+
+--Push data with predictions to PowerBI
+SELECT *
+INTO [PowerBI]
+FROM DataWithPredictions
+
+--Store data with predictions in Azure Data Lake Store
+SELECT *
+INTO [DataLakeStore]
+FROM DataWithPredictions
+</code></pre>
+<div class="exercise-end"></div>
+
+<h3 id="review-and-start-the-stream-analytics-job">Review and Start the Stream Analytics Job</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Review and Start the Stream Analytics Job
+</h4>
+
+<p>By now, you have defined all major components of a Stream Analytics job, including the inputs, outputs, functions and query.</p>
+<p>You can review a graphical diagram that illustrates the structure of your job by going to <em>Job Diagram</em> in the navigation bar.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 22.png" class="img-small" /></p>
+<p>Take a moment to examine the diagram.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 20.png" class="img-large" /></p>
+<p>Now, we are ready to star the Stream Analytics Job. Navigate to the Overview blade of the Stream Analytics Job and press the <em>Start</em> button. </p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 21.png" class="img-medium" /></p>
+<p>You will be directed to a page that will allow you to specify the moment from which the job should start reading data from the data source. Select <em>Now</em> and press the <em>Start</em> button.</p>
+<p><img src="images/chapter4/Stream Analytics/StreamAnalytics 23.png" class="img-medium" /></p>
+<p>It may take a couple of minutes for the Stream Analytics job to start. You will see a confirmation once the job has started successfully.</p>
+<div class="exercise-end"></div>
+                </div>
+                <hr>
+
+                <div class="chapter">
+                    <h2 id="visualize-streaming-data-with-power-bi">Visualize Streaming Data With Power BI</h2>
+<p>Once the Stream Analytics got started, it created a streaming dataset in your Power BI account and started pushing data to the data set. We are ready to develop Power BI reports and dashboards to visualize the data.</p>
+<h3 id="create-a-power-bi-report">Create a Power BI Report</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Power BI Report
+</h4>
+
+<p>Log into your Power BI account by navigating to <a href="https://app.powerbi.com">https://app.powerbi.com</a> and logging in with your username and password. After logging in you will see the content of your personal workspace. Click on the down-arrow next to the <em>My Workspace</em> link to expand the navigation menu for your workspace.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 2.png" class="img-large" /></p>
+<p>You should see a list of <em>Dashboards</em>, <em>Reports</em>, <em>Workbooks</em> and <em>Datasets</em>. You should see a <em>Device Telemetry</em> dataset among your datasets. Click on the <em>Device Telemetry</em> dataset.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 3.png" class="img-small" /></p>
+<blockquote>
+<p><strong>NOTE:</strong> Unless you have previously created reports, dashboards, workbooks, or other datasets, you will not see any other content in your workspace. </p>
+</blockquote>
+<p>After click on the <em>Device Telemetry</em> dataset, you will see a blank report based on this dataset.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 4.png" class="img-large" /></p>
+<p>The report design area consists of several main sections:</p>
+<ul>
+<li>Report canvas that serves as the primary design area for your report.</li>
+<li>Visualizations pane that allows you to add and configure visuals for the report</li>
+<li>Filters pane that allows you to specify relevant filters for your report</li>
+<li>Fields pane that lists tables and fields that comprise your dataset.</li>
+</ul>
+<p>Let&#39;s add the first visual to the report:</p>
+<ol>
+<li>Drag the <em>Line chart</em> visual to the report canvas</li>
+<li>Resize the visual to make it larger, and make sure that the line chart visual is selected.</li>
+<li>Find the <em>time stamp</em> field in the Fields pane.</li>
+<li>Drag the <em>time stamp</em> field to the <em>Axis</em> placeholder for your line chart.</li>
+<li>Find the <em>device id</em> field in the Fields pane.</li>
+<li>Drag the <em>device id</em> field to the <em>Legend</em> placeholder for your line chart.</li>
+<li>Find the <em>tempf mean - 1 minute</em> field in the Fields pane.</li>
+<li>Drag the <em>tempf mean - 1 minute</em> field to the <em>Values</em> placeholder for your line chart.</li>
+</ol>
+<p>At this point you should see a chart that resembles the one shown below:
+<img src="images/chapter5/Power BI/PowerBI 5.png" class="img-large" /></p>
+<p>Let&#39;s save your report by expanding the <em>File</em> menu and clicking on <em>Save</em>.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 6.png" class="img-small" /></p>
+<p>You will be asked to provide the name for your new report. Let&#39;s label it <em>Device Telemetry</em>.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 7.png" class="img-medium" /></p>
+<div class="exercise-end"></div>
+
+<h3 id="create-a-power-bi-dashboard">Create a Power BI Dashboard</h3>
+<p>Power BI allows you to combine a set of visuals from one or more reports on a dashboard. By combining visuals from multiple reports, the dashboard can provide a convenient, comprehensive picture of a variety of business processes. Power BI dashboards also provide an ideal way of visualizing streaming data, since the dashboard can be refreshed in near-real-time as new records arrive.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a Power BI Dashboard
+</h4>
+
+<p>First, open the <em>Device Telemetry</em> report that you have created in the previous exercise. </p>
+<p>Then, find and click the Pin icon in the upper right corner of the line chart representing device temperatures over time. This icon will allow you to add a visual to a dashboard.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 8.png" class="img-small" /></p>
+<p>Indicate that you would like to pin the visual to a new dashboard, specify <em>Device Telemetry</em> as the name of the dashboard, and press the <em>Save</em> button.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 9.png" class="img-medium" /></p>
+<p>Once your dashboard has been created, click on <em>Device Telemetry</em> from the list of dashboards in your navigation bar, which will bring you to the Device Telemetry dashboard.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 10.png" class="img" /></p>
+<p>As you observe the dashboard, you will notice that the data on the dashboard will refresh automatically as new records are pushed by the Stream Analytics job to the streaming dataset in Power BI. No manual actions are necessary to refresh the data. </p>
+<p><img src="images/chapter5/Power BI/Power BI - Streaming Data Viz.gif" class="img" /></p>
+<blockquote>
+<p><strong>NOTE:</strong> The animation above is accelerated. You should expect to see your streaming dataset refresh every 30 seconds, due to the fact that your Stream Analytics job is configured to output events every 30 seconds.</p>
+</blockquote>
+<div class="exercise-end"></div>
+
+
+<h3 id="enhance-your-power-bi-report-and-dashboard">Enhance your Power BI Report and Dashboard</h3>
+<p>Power BI provides a rich environment for authoring reports, visualizing data and performing exploratory data analysis. While the simple report that we created in one of the previous exercises is sufficient to illustrate the concepts of report development in Power BI, you may want to experiment with creating more advanced reports. The purpose of the following exercise is to encourage independent exploration of features and capabilities of Power BI.</p>
+<h4 class="exercise-start">
+    <b>Optional Exercise</b>: Enhance Power BI Report and Dashboard
+</h4>
+
+<p>First, add several new visuals to the Power BI report, such as:</p>
+<ul>
+<li>Another line chart that illustrates estimated remaining useful life by device over time.</li>
+<li>A bar chart that illustrates highest temperature by device type</li>
+<li>A bar chart that illustrates highest temperature by motor type</li>
+<li>A slicer that allows filtering the content by time stamp</li>
+<li>A slice that allows filtering the content by device id</li>
+<li>A text box that represents the title of the report page</li>
+</ul>
+<p>When you are finished, your report should look similar to the following illustration.</p>
+<p><img src="images/chapter5/Power BI/PowerBI 12.png" class="img-large" /></p>
+<p>Once you have enhanced the report, pin the visual that represents estimated remaining useful life by device over time to the <em>Device Telemetry</em> dashboard. </p>
+<p>Your enhanced dashboard should look similar to the illustration below:</p>
+<p><img src="images/chapter5/Power BI/PowerBI 14.png" class="img-large" /></p>
+<div class="exercise-end"></div>
+                </div>
+                <hr>
+                <div class="chapter">
+                    <h2 id="use-azure-data-factory-to-load-data-into-data-lake-store">Use Azure Data Factory to Load Data into Data Lake Store</h2>
+<p>In this chapter, you&#39;ll learn how to create an Azure Data Factory pipeline and copy data from Azure Blob Storage to Azure Data Lake store. </p>
+<h3 id="create-azure-data-factory">Create Azure Data Factory</h3>
+<p>Azure Data Factory is a cloud-based integration service for orchestrating data movements and data transformations. These operations are called pipelines and can be schedule to ingest data from multiple sources, process data using compute services (Azure HDInsight, Hadoop, Spark, Azure Data Lake Analytics, Azure Machine Learning, etc.), and publish to data stores such as Azure Data Lake Store.</p>
+<h4 class="exercise-start">
+    <b>Exercise 1</b>: Provision a Data Factory
+</h4>
+
+<p>Browse to the following page <a href="https://portal.azure.com/">https://portal.azure.com/</a> and log into your Azure account. </p>
+<p><img src="/images/chapter6/DF_001.png" alt="Data Factory 001"></p>
+<ol>
+<li>Click the New + to create a new Azure Resource</li>
+<li>Select Data + Analytics </li>
+<li>Click on Data Factory</li>
+</ol>
+<p>An alternative is to search for Data Factory in the Azure Marketplace.
+<img src="/images/chapter6/DF_002.png" alt="Data Factory 002"></p>
+<ol>
+<li>Click the New + to create a new Azure Resource</li>
+<li>Type Data Factory in the Search Box</li>
+<li>Click on Data Factory</li>
+</ol>
+<p>On the next blade menu click on the <em>Create</em> button to provision the Azure Data Factory.</p>
+<p><img src="/images/chapter6/DF_003.png" alt="Data Factory 003"></p>
+<p>Specify the properties of the New data factory.</p>
+<p><img src="images/chapter6/DF_004.png" class="img-medium" /></p>
+<ol>
+<li>Specify name</li>
+<li>Confirm the subscription </li>
+<li>Select the use existing resource group</li>
+<li>Select the previous resource group</li>
+<li>Select the desired location</li>
+<li>Click on the <em>Pin to dashboard</em> checkbox</li>
+<li>Click on the <em>Create</em> button to provision the data factory</li>
+</ol>
+<p>This completes the exercise!</p>
+<div class="exercise-end"></div>
+
+<p><br/></p>
+<h3 id="complete-azure-data-factory-copy-wizard">Complete Azure Data Factory Copy Wizard</h3>
+<h4 class="exercise-start">
+    <b>Exercise 2 :</b> Copy Files using Azure Data Factory Copy Wizard
+</h4>
+
+<p><b>2.1</b> - Once the data factory has been created, open the resource and click on <em>Copy data (PREVIEW)</em>. This will open a new tab to the Azure Data Factory Copy Wizard. </p>
+<p><img src="/images/chapter6/DF_005.png" alt="Data Factory 005"></p>
+<p><b>2.2</b> - On the Properties menu of Copy Data complete the following tasks.</p>
+<p><img src="/images/chapter6/DF_006.png" alt="Data Factory 006"></p>
+<ol>
+<li>Specify a task name</li>
+<li>Enter a task description </li>
+<li>Select Run once now</li>
+<li>Click on the <em>Next</em> button</li>
+</ol>
+<p><b>2.3</b> - On the Source Connection select Azure Blob Storage from the list. Click the <em>Next</em> button to continue. </p>
+<p><img src="/images/chapter6/DF_007.png" alt="Data Factory 007"></p>
+<p><b>2.4</b> On the following screen, enter the storage account information. Click the <em>Next</em> button to continue.</p>
+<p><img src="images/chapter6/DF_008.png" class="img-medium" /></p>
+<ol>
+<li>Specify a connection name</li>
+<li>Select Enter manually from the Account selection method</li>
+<li>Enter the storage account name: <em>kizandevices</em></li>
+<li>Enter the storage account key 
+<strong>Your storage account key will be provided during the workshop</strong></li>
+<li>Click on the <em>Next</em> button</li>
+</ol>
+<p><b>2.5</b> On the following screen, select the input folder <em>device-operating-data</em>. Then, click the <em>Choose</em> button.</p>
+<p><img src="/images/chapter6/DF_009.png" alt="Data Factory 009"></p>
+<p><b>2.6</b> On the following screen, click the check box for copying files recursively. Click the <em>Next</em> button to continue.</p>
+<p><img src="/images/chapter6/DF_010.png" alt="Data Factory 010"></p>
+<p><b>2.7 A</b> - Azure Data Factory will then scan the files selected and automatically detect the File Format settings.</p>
+<p><img src="images/chapter6/DF_011.png" class="img-medium" /></p>
+<p><b>2.7 B</b> - In addition to the settings, a preview of the files will be shown. Once all settings are correct, click the <em>Next</em> button.</p>
+<p><img src="images/chapter6/DF_012.png" class="img" /></p>
+<p><b>2.8</b> - On the Destination data store screen, select Azure Data Lake Store from the list. Click the <em>Next</em> button to continue. </p>
+<p><img src="/images/chapter6/DF_013.png" alt="Data Factory 013"></p>
+<p><b>2.9</b> - Next we will enter the Azure Data Lake Store connection details. </p>
+<p><img src="images/chapter6/DF_014.png" class="img-medium" /></p>
+<ol>
+<li>Specify a connection name</li>
+<li>Select <em>From Azure subscriptions</em> as the Data Lake selection method</li>
+<li>Select the Azure subscription </li>
+<li>Select the Data Lake store account name</li>
+<li>Select the Authentication type as OAuth (This will prompt for account information on a later step)</li>
+<li>Click on the <em>Next</em> button</li>
+</ol>
+<p><b>2.10</b> The next step is to control how the data will be copied. The options available are the following.</p>
+<ul>
+<li>Merge files - will combine files into one large file</li>
+<li>Preserve hierarchy - copy all files and folder structures</li>
+<li>Flatten hierarchy - remove all folders and copy all files into one folder</li>
+</ul>
+<p>Select <em>Preserve hierarchy</em> and click the <em>Next</em> button to continue. </p>
+<p><img src="/images/chapter6/DF_015.png" alt="Data Factory 015"></p>
+<p><b>2.10</b> The next step is to control how the data gets saved. Make sure the <em>Add header to file</em> checkbox is checked. Click the <em>Next</em> button to continue.</p>
+<p><img src="images/chapter6/DF_016.png" class="img-medium" /></p>
+<p><b>2.11</b> Settings will control how the data is moved in Azure. These settings can be changed to allocate a specific number of resources to copy data. Leaving these at Auto will let Azure determine the proper number of resources. Click the <em>Next</em> button to continue.</p>
+<p><img src="images/chapter6/DF_017.png" class="img-medium" /></p>
+<p><b>2.12</b> - The summary screen contains a detail list of the options selected for the Copy Wizard. Click the <em>Authorize</em> button to enter account information required on step 2.9. Click the <em>Next</em> button to continue.</p>
+<p><img src="/images/chapter6/DF_018.png" alt="Data Factory 018"></p>
+<p><b>2.13</b> - A popup window will prompt for Azure account information. Sign in to continue.</p>
+<p><img src="images/chapter6/DF_019.png" class="img-medium" /></p>
+<p><b>2.14</b> - Review the Summary page. Once approved, click the <em>Next</em> button to begin the deployment process of the Azure Data Factory.</p>
+<p><img src="/images/chapter6/DF_020.png" alt="Data Factory 020"></p>
+<p><b>2.15</b> - Once deployment is complete, follow the <em>Click here to monitor copy pipeline</em> link.</p>
+<p><img src="/images/chapter6/DF_021.png" alt="Data Factory 021"></p>
+<p><b>2.16</b> - The Azure Data Factory Resource Explorer will be displayed. In the lower middle section, under ACTIVITY WINDOWS, the currently deployed pipeline will be displayed. Monitor the duration to see how long the copy process will take to complete.</p>
+<p><img src="/images/chapter6/DF_022.png" alt="Data Factory 022"></p>
+<p>This completes the exercise!</p>
+<div class="exercise-end"></div>
+
+                </div>
+                <hr>
+                <div class="chapter">
+                    <h2 id="analyze-big-data-with-azure-data-warehouse-and-power-bi">Analyze Big Data With Azure Data Warehouse and Power BI</h2>
+<p>In this chapter, you&#39;ll create an Azure SQL Data Warehouse, load the data from Azure Data Lake Store using PolyBase and analyze the data using Power BI.</p>
+<h3 id="azure-sql-data-warehouse">Azure SQL Data Warehouse</h3>
+<p>Azure SQL Data Warehouse is a cloud-based massively parallel processing (MPP) relational database, able to handle large enterprise workloads. Designed to efficiently scale up within minutes and integrate across the Azure platform. Azure SQL Data Warehouse compute can be paused and resumed on-demand to eliminate costs during non-business hours. The MPP architecture takes a divide and conquer approach against large distributed datasets. Storage and compute is decoupled allowing more flexibility to grow when required.</p>
+<h4 class="exercise-start">
+    <b>Exercise:</b> Provision an Azure SQL Data Warehouse
+</h4>
+
+<p>Browse to the following page <a href="https://portal.azure.com/">https://portal.azure.com/</a> and log into your Azure account.</p>
+<p><img src="/images/chapter7/DWH002.png" alt="Data Warehouse 002"></p>
+<ol>
+<li>Click the + New to create a new Azure resource</li>
+<li>Select <em>Databases</em></li>
+<li>Click on <em>SQL Data Warehouse</em></li>
+</ol>
+<p>An alternative is to search for <em>SQL Data Warehouse</em> in the Azure Marketplace. </p>
+<p><img src="/images/chapter7/DWH001.png" alt="Data Warehouse 001"></p>
+<ol>
+<li>Click the + New to create a new Azure resource</li>
+<li>Type <em>Data Warehouse</em> in the Search Box</li>
+<li>Click on <em>SQL Data Warehouse</em> to create a new SQL Data Warehouse</li>
+</ol>
+<p>Specify the properties of the New Data Warehouse. </p>
+<p><img src="/images/chapter7/DWH003.png" alt="Data Warehouse 003" class="img-small"/></p>
+<ol>
+<li>Specify name</li>
+<li>Confirm the subscription </li>
+<li>Select the <em>Use existing</em> resource group</li>
+<li>Select the previously created resource group</li>
+<li>Select <em>Blank database</em> for the Select source</li>
+<li>Click on the <em>Pin to dashboard</em> checkbox</li>
+<li>Click on the <em>Create</em> button to provision the new data warehouse</li>
+</ol>
+<p>Specify the server for the New Data Warehouse. 
+<img src="/images/chapter7/DWH004.png" alt="Data Warehouse 004"></p>
+<ol>
+<li>Click <em>Server</em> to configure</li>
+<li>Click <em>Create a new server</em></li>
+<li>Enter the Server Name</li>
+<li>Enter a Server admin login</li>
+<li>Enter a password (see guidelines below). Be sure to record the username and password -- you will need them later.</li>
+<li>Confirm the password</li>
+<li>Select the Location</li>
+</ol>
+<blockquote>
+<p><strong>NOTE:</strong> Passwords must be at least 8 characters long and may not contain the account name of the user. In addition, passwords must contain characters from three of the following categories:</p>
+<ul>
+<li>Uppercase letters (A through Z)</li>
+<li>Lowercase letters (a through z)</li>
+<li>Digits (0 through 9)</li>
+<li>Special characters (e.g. !,$,#,%)</li>
+</ul>
+</blockquote>
+<p>Specify the remaining server properties for the New Data Warehouse. </p>
+<p><img src="/images/chapter7/DWH005.png" alt="Data Warehouse 005" class="img-small"/></p>
+<ol>
+<li>Verify the correct server is selected</li>
+<li>Leave the default Collation</li>
+<li>Select 400 as the Performance level</li>
+<li>Click the checkbox to Pin to Dashboard</li>
+<li>Click <em>Create</em> to finish provisioning the data warehouse</li>
+</ol>
+<p>This completes the exercise!</p>
+<div class="exercise-end"></div>
+
+<h3 id="configure-application-access-to-the-azure-data-lake-store">Configure Application Access to the Azure Data Lake Store</h3>
+<p>Before we can access data from the Azure Data Lake Store using Azure SQL Data Warehouse, we will need to create and configure an Azure Active Directory application that will be authorized to have such access.</p>
+<h4 class="exercise-start">
+    <b>Exercise:</b> Create and Configure Azure Active Directory Application
+</h4>
+
+<p>In the Azure Portal, navigate to the Azure Active Director blade by typing in &quot;Azure Active Directory&quot; in the search bar at the top of the page. Then, select <em>Azure Active Directory</em> from the list of matching resources.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 1.png" class="img"/></p>
+<p>Click on <em>App registrations</em> in the navigation bar.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 3.png" class="img-small"/></p>
+<p>Click on <em> + New application registration</em></p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 4.png" class="img"/></p>
+<p>Specify the details of the new application:</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 5.png" class="img-small"/></p>
+<ol>
+<li>Provide the name for your application</li>
+<li>Specify <em>Web app/API</em> as application type</li>
+<li>Enter a URL in the Sign on URL field (this URL is not relevant for the purpose of this exercise -- you may specify any valid URL)</li>
+<li>Click the <em>Create</em> button to create the App</li>
+</ol>
+<p>Now that the application has been created, let us find and record several important attributes of the application that we will need in a subsequent exercises:</p>
+<ol>
+<li>OAuth 2.0 Token Endpoint</li>
+<li>Application Id </li>
+<li>Authentication Key</li>
+</ol>
+<h5 id="find-the-oauth-2-0-token-endpoint">Find the OAuth 2.0 Token Endpoint</h5>
+<p>On the listing of registered apps, click on the <em>Endpoints</em> link.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 7.png" class="img"/></p>
+<p>On the following screen, you will see a list of endpoints associated with this Azure Active Directory APP. Scroll down to the <em>OAUTH 2.0 TOKEN ENDPOINT</em> area and click on the Copy icon to copy the endpoint URL to the clipboard.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 9.png" class="img-small"/></p>
+<p>Paste and save this URL in a text editor -- you will need it later.</p>
+<h5 id="find-application-id">Find Application Id</h5>
+<p>To find the Application Id of the application, navigate to the overview of the registered app, hover over the Application Id and click on the Copy icon that will appear.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 10.png" class="img"/></p>
+<p>Paste and save the Application Id in a text editor -- you will need it later.</p>
+<h5 id="create-the-authentication-key">Create the Authentication Key</h5>
+<p>Find the <em>Keys</em> link in the Settings blade for the Registered App. </p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 11.png" class="img-small"/></p>
+<p>In the Keys blade, create and save a new Key:</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 12.png" class="img"/></p>
+<ol>
+<li>Specify Key description</li>
+<li>Set the expiration date</li>
+<li>Click Save</li>
+</ol>
+<p>When the authentication key is saved, a key value will be automatically generated. Copy this key, paste it to a text editor and save it -- you will need it later. </p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 13.png" class="img"/></p>
+<blockquote>
+<p><strong>NOTE:</strong> The value of the key will not be visible after you leave the Keys blade - be sure to save it securely.</p>
+</blockquote>
+<p>This completes the exercise!</p>
+<div class="exercise-end"></div>
+
+<h3 id="grant-application-permissions-to-the-data-lake-store">Grant Application Permissions to the Data Lake Store</h3>
+<p>Now, that the application has been created, let us grant it the necessary permissions to access the Azure Data Lake Store. </p>
+<h4 class="exercise-start">
+    <b>Exercise:</b> Grant Application Permissions to Data Lake Store
+</h4>
+
+<p>In the Azure Portal, navigate to the Azure Data Lake Store blade by typing in &quot;Data Lake Store&quot; in the search bar at the top of the page. Then, select <em>Data Lake Store</em> from the list of matching resources.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 15.png" class="img"/></p>
+<p>Select the Data Lake Store that you had created earlier.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 16.png" class="img-medium"/></p>
+<p>In the Overview blade of the Data Lake Store, click on the Data Explorer link:</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 17.png" class="img"/></p>
+<p>Select the root folder of your Azure Data Lake Store in the Data Explorer window.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 18.png" class="img-small"/></p>
+<p>Click on <em>Access</em> in the toolbar at the top of the screen.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 19.png" class="img"/></p>
+<p>In the Access blade, click on the <em>+ Add</em> button.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 20.png" class="img-medium"/></p>
+<p>Click on the <em>Select User or Group</em> link in the Assign Permissions blade.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 22.png" class="img-small"/></p>
+<p>Search for and select the Azure Active Directory application that you had registered earlier:</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 23.png" class="img-small"/></p>
+<p>Click on the <em>Select Permissions</em> link in the Assign Permissions blade.</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 24.png" class="img-small"/></p>
+<p>Specify the desired permissions:</p>
+<p><img src="/images/chapter7/ADLS Access/ADLS Access 25.png" class="img-small"/></p>
+<ol>
+<li>Set Read and Execute permissions</li>
+<li>Add the permissions to the selected folder and all child items</li>
+<li>Add the permissions as an access permission entry and a default permission</li>
+<li>Click <em>OK</em> to apply permissions.</li>
+</ol>
+<p>Now, we can use the identity of the Azure Active Directory application that you had registered to view folder content and read files stored in the appropriate folder of the Azure Data Lake store.</p>
+<p>This completes the exercise!</p>
+<div class="exercise-end"></div>
+
+<h3 id="load-data-into-azure-sql-data-warehouse-using-polybase">Load Data into Azure SQL Data Warehouse using PolyBase</h3>
+<p>PolyBase is a technology that accesses data outside of the Azure SQL Data Warehouse via T-SQL. It is used to import/export data between Hadoop clusters, Azure Blob Storage, and Azure SQL Data Warehouse.</p>
+<h4 class="exercise-start">
+    <b>Exercise:</b> Using PolyBase to connect to Azure Data Lake Store
+</h4>
+
+<p>Open Azure SQL Data Warehouse and click on <em>Query editor (preview)</em> under Common Tasks.
+<img src="/images/chapter7/DWH006.png" alt="Data Warehouse 006"></p>
+<p>The following message will appear describing the terms of the preview feature. Click the checkbox to accept the terms and then click <em>OK</em>.</p>
+<p><img src="/images/chapter7/DWH007.png" alt="Data Warehouse 007" class="img-small"/></p>
+<p>Next, sign into the Azure SQL Data Warehouse using the Azure SQL Data Warehouse account from the previous exercise.</p>
+<ol>
+<li>Click on the <em>Login</em> button</li>
+<li>Select <em>SQL Server Authentication</em> in the Authorization Type field</li>
+<li>Specify the user name that you had selected in a previous exercise</li>
+<li>Specify the password that you had selected in a previous exercise</li>
+<li>Click <em>OK</em> to complete the login process.</li>
+</ol>
+<p><img src="/images/chapter7/DWH009.png" class="img-medium"/></p>
+<p>Once connected to the Azure SQL Data Warehouse, we can being writing queries directly in the browser. The following T-SQL script will create a Master Key and Credential to securely connect to Azure SQL Data Warehouse. </p>
+<blockquote>
+<p><strong>NOTE:</strong> This exercise uses Application Id, OAuth 2.0 Token Endpoint, and Authentication Key that you have obtained in a previous exercise in this chapter.</p>
+</blockquote>
+<pre><code class="lang-sql">CREATE MASTER KEY;
+
+CREATE DATABASE SCOPED CREDENTIAL ADLCredential
+WITH
+    IDENTITY = &#39;&lt;application_id&gt;@&lt;OAuth_2.0_Token_EndPoint&gt;&#39;,
+    SECRET = &#39;&lt;authentication_key&gt;&#39;
+;
+
+-- The identity and secret should look similar to this example:
+--    IDENTITY = &#39;87815a3-4873-54fc-e8b1-789154591c0c2@https://login.microsoftonline.com/5b33523-95c5-61ac-a31b-7d0acd0ba8752/oauth2/token&#39;,
+--    SECRET = &#39;GdeUjJsEJF7JdKFs+v5HSXyzOL+TkjzvNTxCsds3gWHN=&#39;
+</code></pre>
+<p>The next step is to create an external data source that points to the Azure Data Lake Store location, and accessed by using the credential created in the previous step.</p>
+<pre><code class="lang-sql">CREATE EXTERNAL DATA SOURCE AzureDataLakeStore
+WITH (
+    TYPE = HADOOP,
+    LOCATION = &#39;adl://&lt;AzureDataLake account_name&gt;.azuredatalakestore.net&#39;,
+    --For example: &#39;adl://myazurelakestorename.azuredatalakestore.net&#39;
+    CREDENTIAL = ADLCredential
+);
+</code></pre>
+<p>Next, we need to define the external file format for the PolyBase engine to process the data.</p>
+<pre><code class="lang-sql">CREATE EXTERNAL FILE FORMAT DeviceTelemetryDelimitedText
+WITH (
+    FORMAT_TYPE = DELIMITEDTEXT
+    ,FORMAT_OPTIONS
+    (FIELD_TERMINATOR = &#39;,&#39;
+     ,STRING_DELIMITER = &#39;&#39;
+     ,DATE_FORMAT = &#39;yyyy-MM-dd HH:mm:ss.fff&#39;
+     ,USE_TYPE_DEFAULT = FALSE
+    )
+);
+</code></pre>
+<p>Now that the credential, data source, and file format have been created, we are ready to define the external table. When a T-SQL query referencing this external table is executed, the PolyBase engine will push down the call to the underlying file system.</p>
+<pre><code class="lang-sql">CREATE EXTERNAL TABLE dbo.DeviceTelemetryExternal (
+    [DeviceId] [varchar](100) NULL,
+    [DateTime] [varchar](100) NULL,
+    [TempC] [numeric] NULL,
+    [RunTime] [int] NULL
+)
+WITH (
+    LOCATION=&#39;/device-operating-data/&#39;
+    , DATA_SOURCE = AzureDataLakeStore
+    , FILE_FORMAT = DeviceTelemetryDelimitedText
+    ,REJECT_TYPE = VALUE
+    ,REJECT_VALUE = 100
+);
+</code></pre>
+<p>Let us verify that we are able to read the data from the newly created external table by executing a simple SELECT statement:</p>
+<pre><code class="lang-sql">SELECT TOP 100 *
+FROM dbo.DeviceTelemetryExternal
+</code></pre>
+<p>While the PolyBase engine allows ad-hoc queries involving external tables, the best practice is to load external data into the native tables in the Azure SQL Data Warehouse. The next step will load external data from the Data Lake Store into Azure SQL Data Warehouse. We will use the Create Table as Select (CTAS) construct  which is a parallelized operation that efficiently creates a table from a large dataset. When defining the query, the distribution can be defined that splits up the data across multiple nodes of the data warehouse. In the script below, the hash of the DeviceId column was selected to split the data across the storage nodes.</p>
+<pre><code class="lang-sql">CREATE TABLE dbo.DeviceTelemetry  
+WITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = HASH(DeviceId))  
+AS  
+SELECT 
+    CAST([DeviceId] AS [varchar](100)) AS DeviceId,  
+    CAST([DateTime] AS DATETIME2) AS DateTime,  
+    CAST([TempC] AS [numeric]) AS TempC,  
+    CAST([RunTime] AS [int]) AS RunTime
+FROM dbo.DeviceTelemetryExternal
+
+CREATE STATISTICS DeviceTelemetryDeviceIdStats on dbo.DeviceTelemetry(DeviceId);
+</code></pre>
+<p>Now, let&#39;s create an external table and load reference data describing each of the devices.</p>
+<pre><code class="lang-sql">CREATE EXTERNAL TABLE dbo.DeviceReferenceExternal (
+    [Device Id] [varchar](100) NULL,
+    [Motor Type] [varchar](100) NULL,
+    [Device Type] [varchar](100) NULL,
+    [Max Operating Temperature] numeric NULL,
+    [Production Date] [varchar](100) NULL,
+    [Overhaul Date] [varchar](100) NULL,
+    [Overhaul Run Time] int NULL,
+    [Maintenance Date] [varchar](100) NULL,
+    [Maintenance Run Time] int NULL
+)
+WITH (
+    LOCATION=&#39;/device-operating-data/DeviceReferenceData.csv&#39;
+    , DATA_SOURCE = AzureDataLakeStore
+    , FILE_FORMAT = DeviceTelemetryDelimitedText
+    ,REJECT_TYPE = VALUE
+    ,REJECT_VALUE = 100
+);
+</code></pre>
+<p>Then, let&#39;s create a local table with device reference data. You will notice that this table with reference data is being distributed across storage nodes of the data warehouse in a manner similar to the distribution of the device telemetry data to help optimize join performance.</p>
+<pre><code class="lang-sql">CREATE TABLE dbo.DeviceReference  
+WITH (DISTRIBUTION = HASH(DeviceId))  
+AS  
+SELECT 
+    [Device Id] AS DeviceId,
+    [Motor Type] AS MotorType,
+    [Device Type] AS DeviceType,
+    ([Max Operating Temperature] - 32)/1.8 AS MaxOperatingTemperatureC,
+    CAST([Production Date] AS date) AS ProductionDate,
+    CAST([Overhaul Date] AS date) AS OverhaulDate,
+    [Overhaul Run Time] AS OverhaulRunTime,
+    CAST([Maintenance Date] as date) AS MaintenanceDate,
+    [Maintenance Run Time] AS MaintenanceRunTime
+FROM dbo.DeviceReferenceExternal
+
+CREATE STATISTICS DeviceReferenceDeviceIdStats ON dbo.DeviceReference (DeviceId);
+</code></pre>
+<p>Finally, we will execute a query that will allow us to join telemetry data with reference data and retrieve the average, minimum and maximum temperatures, as well as the count of records for each combination of device type and motor type.</p>
+<pre><code class="lang-sql">SELECT R.DeviceType,
+    R.MotorType,
+    COUNT(DISTINCT T.DeviceId) AS DistinctDevices,
+    COUNT(*) AS Observations,
+    AVG(T.TempC) AS AverageTemperatureC,
+    MIN(T.TempC) AS MinimumTemperatureC,
+    MAX(T.TempC) AS MaximumTemperatureC,
+    CAST(COUNT(CASE WHEN T.TempC &gt; R.MaxOperatingTemperatureC THEN 1 END) AS numeric)/COUNT(*) 
+        AS [ExcessiveTemperature%]
+FROM dbo.DeviceTelemetry T
+    JOIN dbo.DeviceReference R 
+        ON T.DeviceId = R.DeviceId
+GROUP BY R.DeviceType,
+    R.MotorType
+ORDER BY R.DeviceType,
+    R.MotorType
+</code></pre>
+<p>This completes the exercise!</p>
+<div class="exercise-end"></div>
+
+<p><br/></p>
+<h3 id="visualize-data-using-power-bi">Visualize data using Power BI</h3>
+<h4 class="exercise-start">
+    <b>Exercise:</b> Connecting Azure SQL Data Warehouse to Power BI
+</h4>
+
+<p>Open Azure SQL Data Warehouse and click on Open in Power BI under Common Tasks. </p>
+<p><img src="/images/chapter7/DWH010.png" class="img"/></p>
+<p>You may be asked to enter your username and password to log into the Power BI service.</p>
+<blockquote>
+<p><strong>Note:</strong> Your credentials to the Power BI account may or may not be the same as your credentials to your Azure subscription.</p>
+</blockquote>
+<p>During the next step, you will confirm the names of the Azure SQL Server and Database. Click Next to continue.</p>
+<p><img src="/images/chapter7/PowerBI 1.png" class="img-large"/></p>
+<p>Enter the username and password for the Azure SQL Data Warehouse account that you had created earlier. Then press the <em>Sign In</em> button to connect to the Azure SQL Data Warehouse. </p>
+<p><img src="/images/chapter7/DWH012.png" class="img-medium"/></p>
+<p>A new Power BI dataset connected to Azure SQL Data Warehouse will be created.</p>
+<p>You will see a new report canvas that you will use to create a new report. </p>
+<p>Start by creating a bar chart that summarizes average temperatures by device. </p>
+<p><img src="/images/chapter7/PowerBI 3.png" class="img-large"/></p>
+<ol>
+<li>Select the bar chart visual from the visualizations pallette</li>
+<li>Drag and drop the bar chart visual to the report canvas and expand it to a larger size.</li>
+<li>Select DeviceId field from the DeviceTelemetry table</li>
+<li>Drag and drop the DeviceId field to the Axis placeholder</li>
+<li>Select TempC field from the DeviceTelemetry table</li>
+<li>Drag and drop the TempC field to the Value placeholder</li>
+<li>Click on the downward-pointing arrow in the Value placeholder</li>
+<li>Select <em>Average</em> from the pop-up menu.</li>
+</ol>
+<p>Now, let us enhance this chart by representing not only the average temperature, but also the volatility of temperatures for each device.
+<img src="/images/chapter7/PowerBI 4.png" class="img-large"/></p>
+<ol>
+<li>Select TempC field from the DeviceTelemetry table</li>
+<li>Drag and drop the TempC field to the Color saturation placeholder\</li>
+<li>Click on the downward-pointing arrow in the Color saturation placeholder</li>
+<li>Select <em>Standard deviation</em> from the pop-up menu.</li>
+</ol>
+<p>This completes the exercise!</p>
+<div class="exercise-end"></div>
+
+<p><br/></p>
+<h3 id="workshop-completed">Workshop Completed</h3>
+<p>Congratulations! You have successfully completed the workshop and have built an end-to-end real-time predictive maintenance solution using Azure Machine learning, IoT Hubs, Stream Analytics, and Power BI</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/built.js"></script>
+
+</body>
+
+</html>
