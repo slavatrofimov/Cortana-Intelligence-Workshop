@@ -28,7 +28,7 @@ The report design area consists of several main sections:
 * Fields pane that lists tables and fields that comprise your dataset.
 
 Let's add the first visual to the report:
-1. Drag the *Line chart* visual to the report canvas
+1. Click on the *Line chart* visual, which will place it on the report canvas
 2. Resize the visual to make it larger, and make sure that the line chart visual is selected.
 3. Find the *time stamp* field in the Fields pane.
 4. Drag the *time stamp* field to the *Axis* placeholder for your line chart.

@@ -330,7 +330,7 @@ WITH
 CREATE EXTERNAL DATA SOURCE AzureStorage
 WITH (
     TYPE = HADOOP,
-    LOCATION = 'wasbs://kizandevices.blob.core.windows.net',
+    LOCATION = 'wasbs://referencedata@kizandevices.blob.core.windows.net',
     CREDENTIAL = AzureStorageCredential
 );
 
@@ -352,7 +352,7 @@ CREATE EXTERNAL TABLE dbo.DeviceReferenceExternal (
     [Maintenance Run Time] int NULL
 )
 WITH (
-    LOCATION='/referencedata/DeviceReferenceData.csv'
+    LOCATION='/DeviceReferenceData.csv'
     , DATA_SOURCE = AzureStorage
     , FILE_FORMAT = DeviceTelemetryDelimitedText
     ,REJECT_TYPE = VALUE
@@ -440,8 +440,8 @@ Start by creating a bar chart that summarizes average temperatures by device.
 
 <img src="images/chapter7/PowerBI 3.png" class="img-large"/>
 
-1. Select the bar chart visual from the visualizations pallette
-2. Drag and drop the bar chart visual to the report canvas and expand it to a larger size.
+1. Click on the bar chart visual from the visualizations pallette
+2. Once the bar chart visual will be placed on the report canvas, expand it to a larger size.
 3. Select DeviceId field from the DeviceTelemetry table
 4. Drag and drop the DeviceId field to the Axis placeholder
 5. Select TempC field from the DeviceTelemetry table

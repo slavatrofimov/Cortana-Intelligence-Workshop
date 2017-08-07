@@ -883,7 +883,7 @@ FROM DataWithPredictions
 </ul>
 <p>Let&#39;s add the first visual to the report:</p>
 <ol>
-<li>Drag the <em>Line chart</em> visual to the report canvas</li>
+<li>Click on the <em>Line chart</em> visual, which will place it on the report canvas</li>
 <li>Resize the visual to make it larger, and make sure that the line chart visual is selected.</li>
 <li>Find the <em>time stamp</em> field in the Fields pane.</li>
 <li>Drag the <em>time stamp</em> field to the <em>Axis</em> placeholder for your line chart.</li>
@@ -1314,7 +1314,7 @@ WITH
 CREATE EXTERNAL DATA SOURCE AzureStorage
 WITH (
     TYPE = HADOOP,
-    LOCATION = &#39;wasbs://kizandevices.blob.core.windows.net&#39;,
+    LOCATION = &#39;wasbs://referencedata@kizandevices.blob.core.windows.net&#39;,
     CREDENTIAL = AzureStorageCredential
 );
 </code></pre>
@@ -1331,7 +1331,7 @@ WITH (
     [Maintenance Run Time] int NULL
 )
 WITH (
-    LOCATION=&#39;/referencedata/DeviceReferenceData.csv&#39;
+    LOCATION=&#39;/DeviceReferenceData.csv&#39;
     , DATA_SOURCE = AzureStorage
     , FILE_FORMAT = DeviceTelemetryDelimitedText
     ,REJECT_TYPE = VALUE
@@ -1398,8 +1398,8 @@ ORDER BY R.DeviceType,
 <p>Start by creating a bar chart that summarizes average temperatures by device. </p>
 <p><img src="images/chapter7/PowerBI 3.png" class="img-large"/></p>
 <ol>
-<li>Select the bar chart visual from the visualizations pallette</li>
-<li>Drag and drop the bar chart visual to the report canvas and expand it to a larger size.</li>
+<li>Click on the bar chart visual from the visualizations pallette</li>
+<li>Once the bar chart visual will be placed on the report canvas, expand it to a larger size.</li>
 <li>Select DeviceId field from the DeviceTelemetry table</li>
 <li>Drag and drop the DeviceId field to the Axis placeholder</li>
 <li>Select TempC field from the DeviceTelemetry table</li>
