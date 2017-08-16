@@ -13,6 +13,12 @@ The workshop is presented by:
 * Lucas Feiock [KiZAN Technologies](http://kizan.com)
 * Mike Branstein [KiZAN Technologies](http://kizan.com)
 
+### Solution Architecture
+The architecture of the  predictive maintenance solution built during this workshop is shown on the following diagram:
+
+<img src="images/chapter0/Predictive Maintenance Solution Architecture.png" class="img-large" />
+
+
 ### Agenda
 #### Machine Learning
 * Provision a resource group for the experiment

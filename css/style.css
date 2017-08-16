@@ -754,6 +754,11 @@ pre {
     color: white;
     outline: 0; }
 
+.logo {
+  width: 87px !important;
+  height: 42px !important;
+  margin: 4px 4px 0 0; }
+
 @media (max-width: 700px) {
   #content-container {
     display: block; }
